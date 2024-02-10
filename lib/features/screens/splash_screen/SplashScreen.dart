@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
@@ -33,7 +32,7 @@ class _WelComeScreenState extends State<SplashScreen> {
     });
     if (isButtonPressed) {
       Future.delayed(Duration(seconds: 3), () {
-        navigateto_Home_page();
+        Navigate_To_Home_Page();
       });
     }
   }
@@ -56,7 +55,7 @@ class _WelComeScreenState extends State<SplashScreen> {
       listener: (context, state) {
         if (state is GetStartedButtonNavigatetoIntropageOneState) {
           hideButton();
-          navigateOnBoarding_page();
+          Navigate_OnBoarding_Page();
         }
       },
       builder: (context, state) {
@@ -152,12 +151,12 @@ class _WelComeScreenState extends State<SplashScreen> {
     );
   }
 
-  navigateto_Home_page() {
+  Navigate_To_Home_Page() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
-  navigateOnBoarding_page() {
+  Navigate_OnBoarding_Page() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => OnBoarding()));
   }
