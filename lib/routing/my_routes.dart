@@ -6,13 +6,13 @@ class MyRoutes {
   MyRoutes._();
 
   static void navigateToHomePage(BuildContext context) {
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   static void navigateOnBoardingPage(BuildContext context) {
-    Navigator.push(
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const OnBoarding()));
   }
 
