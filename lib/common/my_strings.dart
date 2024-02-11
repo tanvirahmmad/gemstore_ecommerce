@@ -10,6 +10,6 @@ class MyStrings {
   static const String explore_your_true_style = "Explore your true style";
   static const String relax_and_let_us_bring_the_style = "Relax and let us bring the style to you";
   static const String get_Started = "Get Started";
-  static const String welcome_to_GemStore = "Welcome to GemStore!";
+  static const String welcome_to_gemStore = "Welcome to GemStore!";
   static const String the_home_for_a_fasionista = "The home for a fasionista";
 }
