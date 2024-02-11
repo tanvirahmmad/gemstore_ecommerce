@@ -1,20 +1,17 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPreferences {
-  static late SharedPreferences _prefs;
-  bool isButtonPressed = true;
-  AppPreferences._privateConstructor();
+  AppPreferences._();
 
-  static final AppPreferences instance = AppPreferences._privateConstructor();
+  static const String _isIntoShown = "isIntoShown";
 
-  Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
+  static Future<void> saveIntroScreenShowed() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(_isIntoShown, true);
   }
-  GetBool()  {
-   isButtonPressed =
-    _prefs.getBool('isButtonPressed') ?? false;
-  }
-  Future<void> hideButton() async {
-    await _prefs.setBool('isButtonPressed', true);
+
+  static Future<bool> isIntoShown() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_isIntoShown) ?? false;
   }
 }
