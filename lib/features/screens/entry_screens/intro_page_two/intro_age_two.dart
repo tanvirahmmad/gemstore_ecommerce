@@ -72,7 +72,7 @@ class _IntroPageTwoState extends State<IntroPageTwo> {
                   color: Color(int.parse(MyColor.myColorThree)),
                   child: Image.asset(
                     MyAssetsStrings.intro_page_two_images,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 SizedBox(height: 55,),

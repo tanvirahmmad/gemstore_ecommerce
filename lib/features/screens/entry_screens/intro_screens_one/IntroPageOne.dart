@@ -70,7 +70,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
                   color: Color(int.parse(MyColor.myColorThree)),
                   child: Image.asset(
                     MyAssetsStrings.intro_page_one_images,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 SizedBox(height: 55,),
