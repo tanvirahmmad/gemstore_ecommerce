@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  My_Strings.Home_page_status,
+                  MyStrings.Home_page_status,
                   style: TextStyle(
                     fontFamily: MY_Assets_Strings.productSans,
                     fontSize: 20,

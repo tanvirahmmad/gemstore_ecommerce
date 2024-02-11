@@ -31,7 +31,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
                 Container(
                   child: Center(
                     child: Text(
-                      My_Strings.Explore_your_true_style,
+                      MyStrings.Explore_your_true_style,
                       style: TextStyle(
                         fontFamily:MY_Assets_Strings.productSans,
                         color: Color(
@@ -46,7 +46,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
                 SizedBox(height: 8,),
                 Container(
                   child: Text(
-                    My_Strings.Relax_and_let_us_bring_the_style,
+                    MyStrings.Relax_and_let_us_bring_the_style,
                     style: TextStyle(
                       fontFamily: MY_Assets_Strings.productSans,
                       color: Color(
@@ -99,7 +99,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
                   NavigateToNavigationBar();
                 },
                 child: Text(
-                  My_Strings.Shopping_now,
+                  MyStrings.Shopping_now,
                   style: TextStyle(
                     fontFamily: MY_Assets_Strings.productSans,
                     color: Color(int.parse(MyColor.myColorOne)),

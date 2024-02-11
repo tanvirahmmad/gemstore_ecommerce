@@ -84,7 +84,7 @@ class _WelComeScreenState extends State<SplashScreen> {
                   children: [
                     Container(
                         child: Text(
-                          My_Strings.Welcome_to_GemStore,
+                          MyStrings.Welcome_to_GemStore,
                           style: TextStyle(
                         fontFamily: MY_Assets_Strings.productSans,
                         color:Color(int.parse(MyColor.myColorOne)),
@@ -95,7 +95,7 @@ class _WelComeScreenState extends State<SplashScreen> {
                     SizedBox(height: 10,),
                     Container(
                       child: Text(
-                        My_Strings.The_home_for_a_fasionista,
+                        MyStrings.The_home_for_a_fasionista,
                         style: TextStyle(
                           fontFamily: MY_Assets_Strings.productSans,
                           color: Color(
@@ -136,7 +136,7 @@ class _WelComeScreenState extends State<SplashScreen> {
                                 // Add your button press logic here
                               },
                               child: Text(
-                                My_Strings.Get_Started,
+                                MyStrings.Get_Started,
                                 style: TextStyle(
                                   fontFamily: MY_Assets_Strings.productSans,
                                   color: Color(int.parse(MyColor.myColorOne)),
