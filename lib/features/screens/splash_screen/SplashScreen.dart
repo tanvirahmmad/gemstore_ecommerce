@@ -7,7 +7,10 @@ import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/onboarding_state/on_boarding_state.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/splash_screen/splash_screens_bloc.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../data/local_storage/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,136 +20,134 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _WelComeScreenState extends State<SplashScreen> {
-  late SharedPreferences prefs;
-  bool isButtonPressed = true;
+  bool isIntoShown = true;
 
   @override
   void initState() {
-    initPrefs();
+    _initPrefs();
     super.initState();
   }
 
-  Future<void> initPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isButtonPressed = prefs.getBool('isButtonPressed') ?? false;
-    });
-    if (isButtonPressed) {
-      Future.delayed(Duration(seconds: 3), () {
-        Navigate_To_Home_Page();
+  Future<void> _initPrefs() async {
+    isIntoShown = await AppPreferences.isIntoShown();
+
+    setState(() {});
+
+    if (isIntoShown) {
+      Future.delayed(const Duration(seconds: 1), () {
+        MyRoutes.navigateToHomePage(context);
       });
     }
   }
 
-  void hideButton() {
+  void _hideButton() {
     setState(() {
-      isButtonPressed = true;
+      isIntoShown = false;
     });
-
-    prefs.setBool('isButtonPressed', isButtonPressed);
   }
 
-  @override
+  void _onGetStartButtonPressed() {
+    AppPreferences.saveIntroScreenShowed();
+    splashScreensBloc.add(GetStartedButtonNavigateEvent());
+    MyRoutes.navigateOnBoardingPage(context);
+  }
+
   final SplashScreensBloc splashScreensBloc = SplashScreensBloc();
+
+  @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocConsumer<SplashScreensBloc, SplashScreensState>(
       bloc: splashScreensBloc,
       listenWhen: (previous, current) => current is SplashStateActionState,
       buildWhen: (previous, current) => current is! SplashStateActionState,
       listener: (context, state) {
         if (state is GetStartedButtonNavigatetoIntropageOneState) {
-          hideButton();
-          Navigate_OnBoarding_Page();
+          _hideButton();
+          MyRoutes.navigateOnBoardingPage(context);
         }
       },
       builder: (context, state) {
         return Scaffold(
           body: Stack(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+              SizedBox(
+                height: screenHeight,
+                width: screenWidth,
                 child: Image.asset(
                   MyAssetsStrings.splash_images,
                   fit: BoxFit.fitWidth,
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                height: screenHeight,
+                width: screenWidth,
                 color: Colors.black12.withOpacity(.5),
               ),
-              Positioned(bottom: MediaQuery.of(context).size.height*.2,
-                left:MediaQuery.of(context).size.height*-.0 ,
-                right:MediaQuery.of(context).size.height* .0 ,
-
+              Positioned(
+                bottom: screenHeight * 0.2,
+                left: 0,
+                right: 0,
                 child: Column(
                   children: [
-                    Container(
-                        child: Text(
-                          MyStrings.welcome_to_GemStore,
-                          style: TextStyle(
+                    Text(
+                      MyStrings.welcome_to_gemStore,
+                      style: TextStyle(
                         fontFamily: MyAssetsStrings.productSans,
-                        color:Color(int.parse(MyColor.myColorOne)),
+                        color: Color(int.parse(MyColor.myColorOne)),
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      MyStrings.the_home_for_a_fasionista,
+                      style: TextStyle(
+                        fontFamily: MyAssetsStrings.productSans,
+                        color: Color(int.parse(MyColor.myColorOne)),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Visibility(
+                      visible: !isIntoShown,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: AnimatedOpacity(
+                        duration: const Duration(
+                          milliseconds: 800,
+                        ),
+                        opacity: isIntoShown ? 0 : 1,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(193, 53),
+                            primary: Colors.grey.shade700,
+                            side: const BorderSide(color: Colors.white, width: 1),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40)),
+                            ),
                           ),
-                        )),
-                    SizedBox(height: 10,),
-                    Container(
-                      child: Text(
-                        MyStrings.the_home_for_a_fasionista,
-                        style: TextStyle(
-                          fontFamily: MyAssetsStrings.productSans,
-                          color: Color(
-                          int.parse(MyColor.myColorOne)
+                          onPressed: _onGetStartButtonPressed,
+                          child: Text(
+                            MyStrings.get_Started,
+                            style: TextStyle(
+                              fontFamily: MyAssetsStrings.productSans,
+                              color: Color(int.parse(MyColor.myColorOne)),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(height: 50,),
-                    Container(
-
-                        child: Visibility(
-                          visible: !isButtonPressed,
-                          maintainAnimation: true,
-                          maintainState: true,
-                          child: AnimatedOpacity(
-                            duration: Duration(
-                              milliseconds: 800,
-                            ),
-                            opacity: isButtonPressed ? 0 : 1,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(193, 53),
-                                primary: Colors.grey.shade700,
-                                side: BorderSide(color: Colors.white, width: 1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(40)),
-                                ),
-                              ),
-                              onPressed: () {
-                                splashScreensBloc
-                                    .add(GetStartedButtonNavigateEvent());
-                                //hideButton();
-                                //navigatetointro_page();
-                                // Add your button press logic here
-                              },
-                              child: Text(
-                                MyStrings.get_Started,
-                                style: TextStyle(
-                                  fontFamily: MyAssetsStrings.productSans,
-                                  color: Color(int.parse(MyColor.myColorOne)),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )),
                   ],
                 ),
               ),
@@ -155,15 +156,5 @@ class _WelComeScreenState extends State<SplashScreen> {
         );
       },
     );
-  }
-
-  Navigate_To_Home_Page() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
-  }
-
-  Navigate_OnBoarding_Page() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => OnBoarding()));
   }
 }
