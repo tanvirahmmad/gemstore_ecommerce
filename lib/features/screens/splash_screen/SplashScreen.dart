@@ -97,7 +97,7 @@ class _WelComeScreenState extends State<SplashScreen> {
                       style: TextStyle(
                         fontFamily: MyAssetsStrings.productSans,
                         color: Color(int.parse(MyColor.myColorOne)),
-                        fontSize: 25,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
