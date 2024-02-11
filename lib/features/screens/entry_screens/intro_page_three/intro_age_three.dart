@@ -72,7 +72,7 @@ SizedBox(height: 33),
         color: Color(int.parse(MyColor.myColorThree)),
         child: Image.asset(
             MyAssetsStrings.intro_page_three_images,
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fitHeight,
         ),
       ),
       SizedBox(height: 55,),
