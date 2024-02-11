@@ -17,19 +17,24 @@ class _IntroPageThreeState extends State<IntroPageThree> {
 
     return Scaffold(
         body: Stack(children: [
-      Container(
-        color: Color(int.parse(MyColor.myColorFive)),
-      ),
+
 
       Container(
-        height: 351,
-        width: 375,
+
         color: Colors.white,
       ),
-      Positioned(top:50 ,
-        left: 55,
-        child: Column(
+          Positioned(
+            bottom: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height*.37,
+              width: MediaQuery.of(context).size.width,
+              color: Color(int.parse(MyColor.myColorFive)),
+            ),
+          ),
+
+       Column(
           children: [
+            const SizedBox(height: 70),
             Container(
               child: Center(
                 child: Text(
@@ -45,7 +50,7 @@ class _IntroPageThreeState extends State<IntroPageThree> {
                 ),
               ),
             ),
-SizedBox(height: 8,),
+SizedBox(height: 13,),
             Container(
               child: Text(
                 MyStrings.relax_and_let_us_bring_the_style,
@@ -58,61 +63,45 @@ SizedBox(height: 8,),
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-          ],
         ),
-      ),
 
-      Positioned( // bottom: MediaQuery.of(context).size.height * 0.2,
-        top: MediaQuery.of(context).size.height * 0.2, // Adjust the top value to center the stack vertically
-        bottom:0 ,// Adjust the bottom value to center the stack vertically
-        left: 50,
-        right:0,
-
-        child: Stack(children: [
-          Container(
-            height: 368,
-            width: 261,
-            color: Color(int.parse(MyColor.myColorThree)),
-          ),
-
-
-        Container(
-          child: Image.asset(
+SizedBox(height: 33),
+      Container(
+        height: 368,
+        width: 261,
+        color: Color(int.parse(MyColor.myColorThree)),
+        child: Image.asset(
             MyAssetsStrings.intro_page_three_images,
             fit: BoxFit.fitWidth,
-          ),
-        ),],),
+        ),
       ),
-      Positioned(top:MediaQuery.of(context).size.height * 0.880,
-        left:MediaQuery.of(context).padding.left+90,
+      SizedBox(height: 55,),
 
-        child: Container(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(193, 53),
-              primary: Colors.grey.shade700,
-              side: BorderSide(color: Colors.white, width: 1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-              ),
+      Container(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(193, 53),
+            primary: Colors.grey.shade700,
+            side: BorderSide(color: Colors.white, width: 1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(40)),
             ),
-            onPressed: () {
-              NavigateToNavigationBar();
-            },
-            child: Text(
-              MyStrings.shopping_now,
-              style: TextStyle(
-                fontFamily: MyAssetsStrings.productSans,
-                color: Color(int.parse(MyColor.myColorOne)),
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          onPressed: () {
+            NavigateToNavigationBar();
+          },
+          child: Text(
+            MyStrings.shopping_now,
+            style: TextStyle(
+              fontFamily: MyAssetsStrings.productSans,
+              color: Color(int.parse(MyColor.myColorOne)),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
-      ),
-    ]));
+      ),]
+       )]));
   }
   NavigateToNavigationBar() {
     Navigator.push(

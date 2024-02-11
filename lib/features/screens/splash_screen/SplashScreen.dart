@@ -5,6 +5,8 @@ import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/onboarding_state/on_boarding_state.dart';
+import 'package:gemstore_ecommerce/features/screens/entry_screens/onboarding_state/on_boarding_state.dart';
+import 'package:gemstore_ecommerce/features/screens/entry_screens/onboarding_state/on_boarding_state.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/splash_screen/splash_screens_bloc.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
@@ -34,8 +36,8 @@ class _WelComeScreenState extends State<SplashScreen> {
     setState(() {});
 
     if (isIntoShown) {
-      Future.delayed(const Duration(seconds: 1), () {
-        MyRoutes.navigateToHomePage(context);
+      Future.delayed(const Duration(seconds: 2), () {
+        MyRoutes.navigateOnBoardingPage(context);
       });
     }
   }
