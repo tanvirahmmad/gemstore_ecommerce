@@ -67,7 +67,7 @@ class _WelComeScreenState extends State<SplashScreen> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset(
-                  MY_Assets_Strings.splash_images,
+                  MyAssetsStrings.splash_images,
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -84,9 +84,9 @@ class _WelComeScreenState extends State<SplashScreen> {
                   children: [
                     Container(
                         child: Text(
-                          MyStrings.Welcome_to_GemStore,
+                          MyStrings.welcome_to_GemStore,
                           style: TextStyle(
-                        fontFamily: MY_Assets_Strings.productSans,
+                        fontFamily: MyAssetsStrings.productSans,
                         color:Color(int.parse(MyColor.myColorOne)),
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -95,9 +95,9 @@ class _WelComeScreenState extends State<SplashScreen> {
                     SizedBox(height: 10,),
                     Container(
                       child: Text(
-                        MyStrings.The_home_for_a_fasionista,
+                        MyStrings.the_home_for_a_fasionista,
                         style: TextStyle(
-                          fontFamily: MY_Assets_Strings.productSans,
+                          fontFamily: MyAssetsStrings.productSans,
                           color: Color(
                           int.parse(MyColor.myColorOne)
                           ),
@@ -136,9 +136,9 @@ class _WelComeScreenState extends State<SplashScreen> {
                                 // Add your button press logic here
                               },
                               child: Text(
-                                MyStrings.Get_Started,
+                                MyStrings.get_Started,
                                 style: TextStyle(
-                                  fontFamily: MY_Assets_Strings.productSans,
+                                  fontFamily: MyAssetsStrings.productSans,
                                   color: Color(int.parse(MyColor.myColorOne)),
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

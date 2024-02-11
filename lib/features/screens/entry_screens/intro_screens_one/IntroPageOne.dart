@@ -31,9 +31,9 @@ class _IntroPageOneState extends State<IntroPageOne> {
                 Container(
                   child: Center(
                     child: Text(
-                      MyStrings.Explore_your_true_style,
+                      MyStrings.explore_your_true_style,
                       style: TextStyle(
-                        fontFamily:MY_Assets_Strings.productSans,
+                        fontFamily:MyAssetsStrings.productSans,
                         color: Color(
                             int.parse(MyColor.myColorFour)
                         ),
@@ -46,9 +46,9 @@ class _IntroPageOneState extends State<IntroPageOne> {
                 SizedBox(height: 8,),
                 Container(
                   child: Text(
-                    MyStrings.Relax_and_let_us_bring_the_style,
+                    MyStrings.relax_and_let_us_bring_the_style,
                     style: TextStyle(
-                      fontFamily: MY_Assets_Strings.productSans,
+                      fontFamily: MyAssetsStrings.productSans,
                       color: Color(
                           int.parse(MyColor.myColorTwo)
                       ),
@@ -77,7 +77,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
 
               Container(
                 child: Image.asset(
-                  MY_Assets_Strings.intro_page_three_images,
+                  MyAssetsStrings.intro_page_three_images,
                   fit: BoxFit.fitWidth,
                 ),
               ),],),
@@ -99,9 +99,9 @@ class _IntroPageOneState extends State<IntroPageOne> {
                   NavigateToNavigationBar();
                 },
                 child: Text(
-                  MyStrings.Shopping_now,
+                  MyStrings.shopping_now,
                   style: TextStyle(
-                    fontFamily: MY_Assets_Strings.productSans,
+                    fontFamily: MyAssetsStrings.productSans,
                     color: Color(int.parse(MyColor.myColorOne)),
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

@@ -31,15 +31,15 @@ class _NavigationBarSetState extends State<NavigationBarSet> {
               setState(() =>currentIndex=value);
             },selectedItemColor:Color(int.parse(MyColor.myColorTwo)),unselectedItemColor:Colors.grey,items: const [
           BottomNavigationBarItem(label: "Home",icon:  ImageIcon(
-              AssetImage(MY_Assets_Strings.Navigator_home_image) ),
+              AssetImage(MyAssetsStrings.Navigator_home_image) ),
           ),   BottomNavigationBarItem(label: "Search",icon:  ImageIcon(
-              AssetImage(MY_Assets_Strings.Navigator_search_image) ),
+              AssetImage(MyAssetsStrings.Navigator_search_image) ),
           ),
           BottomNavigationBarItem(label: "Bag",icon:  ImageIcon(
-              AssetImage(MY_Assets_Strings.Navigator_bag_image) ),
+              AssetImage(MyAssetsStrings.Navigator_bag_image) ),
           ),
           BottomNavigationBarItem(label: "Profile",icon:  ImageIcon(
-              AssetImage(MY_Assets_Strings.Navigator_profile_image) ),
+              AssetImage(MyAssetsStrings.Navigator_profile_image) ),
           ),
 
         ]),

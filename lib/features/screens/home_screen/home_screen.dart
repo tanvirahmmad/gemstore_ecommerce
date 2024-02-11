@@ -50,9 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  MyStrings.Home_page_status,
+                  MyStrings.home_page_status,
                   style: TextStyle(
-                    fontFamily: MY_Assets_Strings.productSans,
+                    fontFamily: MyAssetsStrings.productSans,
                     fontSize: 20,
                     color: Color(int.parse(MyColor.myColorTwo)),
                   ),
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               child: IconButton(
                 icon: Image.asset(
-                  MY_Assets_Strings.bell_icon,
+                  MyAssetsStrings.bell_icon,
                 ),
                 onPressed: () {},
               ),
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 60,
                   child:IconButton(
                     icon: Image.asset(
-                      MY_Assets_Strings.women_section,
+                      MyAssetsStrings.women_section,
                     ),
                     onPressed: () {},
                   ),),
