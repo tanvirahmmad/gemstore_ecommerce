@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPreferences {
-  late SharedPreferences _prefs;
+  static late SharedPreferences _prefs;
   bool isButtonPressed = true;
   AppPreferences._privateConstructor();
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/add_to_bag_screen/add_to_bag.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
@@ -28,7 +29,7 @@ class _NavigationBarSetState extends State<NavigationBarSet> {
             currentIndex:currentIndex,
             onTap:(value){
               setState(() =>currentIndex=value);
-            },selectedItemColor:Color(0xff67C4A7),unselectedItemColor:Colors.grey,items: const [
+            },selectedItemColor:Color(int.parse(MyColor.myColorTwo)),unselectedItemColor:Colors.grey,items: const [
           BottomNavigationBarItem(label: "Home",icon:  ImageIcon(
               AssetImage(MY_Assets_Strings.Navigator_home_image) ),
           ),   BottomNavigationBarItem(label: "Search",icon:  ImageIcon(

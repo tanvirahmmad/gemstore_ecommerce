@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
@@ -15,7 +16,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
     return Scaffold(
         body: Stack(children: [
       Container(
-        color: Color(0xff464447),
+        color: Color(int.parse(MyColor.myColorFive)),
       ),
       Container(
         padding: EdgeInsets.only(top: 780),
@@ -31,7 +32,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
             style: TextStyle(
               fontFamily: MY_Assets_Strings.productSans,
               color: Color(
-                0xff000000,
+                int.parse(MyColor.myColorTwo)
               ),
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -47,7 +48,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
             style: TextStyle(
               fontFamily: MY_Assets_Strings.productSans,
               color: Color(
-                0xff000000,
+                int.parse(MyColor.myColorTwo)
               ),
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
         child: Container(
           height: 368,
           width: 261,
-          color: Color(0xffE7E8E9),
+          color: Color(int.parse(MyColor.myColorThree)),
         ),
       ),
       Center(
@@ -89,7 +90,7 @@ NavigateToNavigationBar();
             My_Strings.Shopping_now,
             style: TextStyle(
               fontFamily: MY_Assets_Strings.productSans,
-              color: Color(0xffFFFFFF),
+              color: Color(int.parse(MyColor.myColorOne)),
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/onboarding_state/on_boarding_state.dart';
@@ -75,75 +76,80 @@ class _WelComeScreenState extends State<SplashScreen> {
                 width: MediaQuery.of(context).size.width,
                 color: Colors.black12.withOpacity(.5),
               ),
-              Container(
-                  padding: EdgeInsets.only(top: 150),
-                  child: Center(
+              Positioned(bottom: MediaQuery.of(context).size.height*.2,
+                left:MediaQuery.of(context).size.height*-.0 ,
+                right:MediaQuery.of(context).size.height* .0 ,
+
+                child: Column(
+                  children: [
+                    Container(
+                        child: Text(
+                          My_Strings.Welcome_to_GemStore,
+                          style: TextStyle(
+                        fontFamily: MY_Assets_Strings.productSans,
+                        color:Color(int.parse(MyColor.myColorOne)),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                          ),
+                        )),
+                    SizedBox(height: 10,),
+                    Container(
                       child: Text(
-                    My_Strings.Welcome_to_GemStore,
-                    style: TextStyle(
-                      fontFamily: MY_Assets_Strings.productSans,
-                      color: Color(
-                        0xffFFFFFF,
+                        My_Strings.The_home_for_a_fasionista,
+                        style: TextStyle(
+                          fontFamily: MY_Assets_Strings.productSans,
+                          color: Color(
+                          int.parse(MyColor.myColorOne)
+                          ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ))),
-              Container(
-                padding: EdgeInsets.only(top: 240),
-                child: Center(
-                  child: Text(
-                    My_Strings.The_home_for_a_fasionista,
-                    style: TextStyle(
-                      fontFamily: MY_Assets_Strings.productSans,
-                      color: Color(
-                        0xffFFFFFF,
-                      ),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                    SizedBox(height: 50,),
+                    Container(
+
+                        child: Visibility(
+                          visible: !isButtonPressed,
+                          maintainAnimation: true,
+                          maintainState: true,
+                          child: AnimatedOpacity(
+                            duration: Duration(
+                              milliseconds: 800,
+                            ),
+                            opacity: isButtonPressed ? 0 : 1,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(193, 53),
+                                primary: Colors.grey.shade700,
+                                side: BorderSide(color: Colors.white, width: 1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40)),
+                                ),
+                              ),
+                              onPressed: () {
+                                splashScreensBloc
+                                    .add(GetStartedButtonNavigateEvent());
+                                //hideButton();
+                                //navigatetointro_page();
+                                // Add your button press logic here
+                              },
+                              child: Text(
+                                My_Strings.Get_Started,
+                                style: TextStyle(
+                                  fontFamily: MY_Assets_Strings.productSans,
+                                  color: Color(int.parse(MyColor.myColorOne)),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )),
+                  ],
                 ),
               ),
-              Container(
-                  padding: const EdgeInsets.only(top: 520, left: 88),
-                  child: Visibility(
-                    visible: !isButtonPressed,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    child: AnimatedOpacity(
-                      duration: Duration(
-                        milliseconds: 800,
-                      ),
-                      opacity: isButtonPressed ? 0 : 1,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(193, 53),
-                          primary: Colors.grey.shade700,
-                          side: BorderSide(color: Colors.white, width: 1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                          ),
-                        ),
-                        onPressed: () {
-                          splashScreensBloc
-                              .add(GetStartedButtonNavigateEvent());
-                          //hideButton();
-                          //navigatetointro_page();
-                          // Add your button press logic here
-                        },
-                        child: Text(
-                          My_Strings.Get_Started,
-                          style: TextStyle(
-                            fontFamily: MY_Assets_Strings.productSans,
-                            color: Color(0xffFFFFFF),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )),
             ],
           ),
         );

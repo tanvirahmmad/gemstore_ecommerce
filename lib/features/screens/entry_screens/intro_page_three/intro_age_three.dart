@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
@@ -17,7 +18,7 @@ class _IntroPageThreeState extends State<IntroPageThree> {
     return Scaffold(
         body: Stack(children: [
       Container(
-        color: Color(0xff464447),
+        color: Color(int.parse(MyColor.myColorFive)),
       ),
 
       Container(
@@ -26,21 +27,24 @@ class _IntroPageThreeState extends State<IntroPageThree> {
         width: 375,
         color: Colors.white,
       ),
-      Container(
-        padding: EdgeInsets.only(bottom: 520),
-        child: Center(
-          child: Text(
-            My_Strings.Explore_your_true_style,
-            style: TextStyle(
-              fontFamily:MY_Assets_Strings.productSans,
-              color: Color(
-                0xff000000,
+      Column(
+        children: [
+          Container(
+            child: Center(
+              child: Text(
+                My_Strings.Explore_your_true_style,
+                style: TextStyle(
+                  fontFamily:MY_Assets_Strings.productSans,
+                  color: Color(
+                    int.parse(MyColor.myColorFour)
+                  ),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
+        ],
       ),
       Container(
         padding: EdgeInsets.only(bottom: 450),
@@ -50,7 +54,7 @@ class _IntroPageThreeState extends State<IntroPageThree> {
             style: TextStyle(
               fontFamily: MY_Assets_Strings.productSans,
               color: Color(
-                0xff000000,
+               int.parse(MyColor.myColorTwo)
               ),
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -62,7 +66,7 @@ class _IntroPageThreeState extends State<IntroPageThree> {
         child: Container(
           height: 368,
           width: 261,
-          color: Color(0xffE7E8E9),
+          color: Color(int.parse(MyColor.myColorThree)),
         ),
       ),
 
@@ -93,7 +97,7 @@ class _IntroPageThreeState extends State<IntroPageThree> {
             My_Strings.Shopping_now,
             style: TextStyle(
               fontFamily: MY_Assets_Strings.productSans,
-              color: Color(0xffFFFFFF),
+              color: Color(int.parse(MyColor.myColorOne)),
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
