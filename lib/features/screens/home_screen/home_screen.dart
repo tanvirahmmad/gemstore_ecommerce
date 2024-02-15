@@ -8,6 +8,11 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/home_bloc.dart';
 import 'package:gemstore_ecommerce/widgets/catagory_card_list.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
 import 'package:gemstore_ecommerce/widgets/heading_showall.dart';
+import 'package:gemstore_ecommerce/widgets/hangout_slider_widget.dart';
+import 'package:gemstore_ecommerce/widgets/recomended_slider_image.dart';
+import 'package:gemstore_ecommerce/widgets/top_collection_sliderone.dart';
+import 'package:gemstore_ecommerce/widgets/top_collection_slidertwo.dart';
+import 'package:gemstore_ecommerce/widgets/topcollection_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
-          body: SingleChildScrollView(scrollDirection: Axis.vertical,
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Column(
               children: [
                 BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
@@ -122,7 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                BlocBuilder<HomeBannerBloc, HomeState>(builder: (context, state) {
+                BlocBuilder<HomeBannerBloc, HomeState>(
+                    builder: (context, state) {
                   if (state is BannerLoadingState) {
                     return const Center(
                         child: CircularProgressIndicator.adaptive());
@@ -137,8 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Padding(
                               padding: EdgeInsets.only(
                                   left: 10, right: 10, bottom: 10),
-                              child:
-                                  Text(state.products[index].title!.toString()));
+                              child: Text(
+                                  state.products[index].title!.toString()));
                         },
                       ),
                     );
@@ -147,10 +154,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return const SizedBox();
                 }),
-               HeadingAndShowAll(headingtext: MyStrings.feature_products),
+                HeadingAndShowAll(headingtext: MyStrings.feature_products),
                 FeatureProductsSlider(),
+                HangOutSlider(),
                 HeadingAndShowAll(headingtext: MyStrings.recommended),
+                RecomendedSliderImage(),
                 HeadingAndShowAll(headingtext: MyStrings.top_colection),
+                TopCollectionSliderOne(),
+                TopCollectionSliderTwo(),
+                SizedBox(height: 18),
+                TopCollectionSlider(),
               ],
             ),
           ),
