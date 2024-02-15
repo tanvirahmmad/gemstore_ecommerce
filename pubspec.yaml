@@ -89,7 +89,10 @@ flutter:
     - family: ProductSans
       fonts:
         - asset: assets/fonts/ProductSansBold.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+    - family: ProductSansMedium
+      fonts:
+        - asset: assets/fonts/ProductSans-Medium.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

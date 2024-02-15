@@ -13,7 +13,6 @@ class BannerProducts {
   String? title;
   double? price;
   String? description;
-
   String? image;
   Rating? rating;
 

@@ -14,7 +14,7 @@ class NavigationBarSet extends StatefulWidget {
 
 class _NavigationBarSetState extends State<NavigationBarSet> {
   int currentIndex = 0;
-  List screens=[ HomeScreen(),
+  List screens=[ const HomeScreen(),
     SearchScreen(),
     AddToBag(),
  ProfileScreen()
