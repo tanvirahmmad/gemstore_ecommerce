@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/intro_page_three/intro_age_three.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/intro_page_two/intro_age_two.dart';
@@ -51,3 +52,4 @@ class _OnBoardingState extends State<OnBoarding> {
     );
   }
 }
+*/

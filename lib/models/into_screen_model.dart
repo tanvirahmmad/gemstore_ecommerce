@@ -1,9 +1,9 @@
-class IntoScreenModel {
+class IntroScreenModel {
   String title;
   String subTitle;
   String imagePath;
 
-  IntoScreenModel(
+  IntroScreenModel(
     this.title,
     this.subTitle,
     this.imagePath,

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
+import 'package:gemstore_ecommerce/common/my_strings.dart';
+import 'package:gemstore_ecommerce/models/into_screen_model.dart';
+import 'package:gemstore_ecommerce/widgets/intro_page_widget.dart';
 
 class IntroScreenView extends StatefulWidget {
   const IntroScreenView({super.key});
@@ -8,54 +12,38 @@ class IntroScreenView extends StatefulWidget {
 }
 
 class _IntroScreenViewState extends State<IntroScreenView> {
-
-  // List<modt> intoScreens = [
-  //   model(
-  //     title,
-  //     sub,
-  //     imge,
-  //   ),
-  //   model(
-  //     title,
-  //     sub,
-  //     imge,
-  //   )
-  //   model(
-  //     title,
-  //     sub,
-  //     imge,
-  //   )
-  // ];
+  final PageController _pageController = PageController();
+  List<IntroScreenModel> introScreens = [
+    IntroScreenModel(
+      MyStrings.discover_something_new,
+      MyStrings.special_new_arrivals,
+      MyAssetsStrings.intro_page_one_images,
+    ),
+    IntroScreenModel(
+      MyStrings.update_trendy_outfit,
+      MyStrings.favourite_brands,
+      MyAssetsStrings.intro_page_one_images,
+    ),
+    IntroScreenModel(
+      MyStrings.discover_something_new,
+      MyStrings.special_new_arrivals,
+      MyAssetsStrings.intro_page_one_images,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-
-    return Placeholder();
-
-    // return PageView(
-    //   controller: _pageController,
-    //   children: ...intoScreens.map.lito((i, e)) {
-    //   return Column(
-    //     if()
-    //
-    //     children: [
-    //       text(
-    // e.titlte,
-    // alskd
-    // )
-    //
-    //       e.sub,
-    //
-    //       e.image,
-    //
-    //       indicatior,
-    //
-    //       button
-    //     ],
-    //   ) .tolist()
-    // },
-    // );
-
-
+    return PageView(
+      controller: _pageController,
+      children: List.generate(
+        introScreens.length,
+        (index) => IntroPageWidget(
+          index: index,
+          length: introScreens.length,
+          introScreen: introScreens[index],
+          pageController: _pageController,
+        ),
+      ),
+    );
   }
 }
