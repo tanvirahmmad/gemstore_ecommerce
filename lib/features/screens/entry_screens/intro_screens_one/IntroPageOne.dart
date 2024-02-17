@@ -32,7 +32,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
 
           Column(
               children: [
-                const SizedBox(height: 70),
+                const SizedBox(height: 30),
                 Container(
                   child: Center(
                     child: Text(
@@ -63,9 +63,9 @@ class _IntroPageOneState extends State<IntroPageOne> {
                   ),
                 ),
 
-                SizedBox(height: 33),
+                SizedBox(height: 25),
                 Container(
-                  height: 368,
+                  height:  368,
                   width: 261,
                   color: Color(int.parse(MyColor.myColorThree)),
                   child: Image.asset(
@@ -73,7 +73,7 @@ class _IntroPageOneState extends State<IntroPageOne> {
                     fit: BoxFit.fitHeight,
                   ),
                 ),
-                SizedBox(height: 55,),
+                const SizedBox(height: 60,),
 
                 Container(
                   child: ElevatedButton(

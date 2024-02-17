@@ -31,7 +31,7 @@ class _OnBoardingState extends State<OnBoarding> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 105),
+              padding: const EdgeInsets.only(bottom:60),
               child: SmoothPageIndicator(
                 controller: _pageController,
                 count: screens.length,
