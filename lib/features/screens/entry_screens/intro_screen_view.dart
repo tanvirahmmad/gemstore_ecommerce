@@ -22,12 +22,12 @@ class _IntroScreenViewState extends State<IntroScreenView> {
     IntroScreenModel(
       MyStrings.update_trendy_outfit,
       MyStrings.favourite_brands,
-      MyAssetsStrings.intro_page_one_images,
+      MyAssetsStrings.intro_page_two_images,
     ),
     IntroScreenModel(
-      MyStrings.discover_something_new,
-      MyStrings.special_new_arrivals,
-      MyAssetsStrings.intro_page_one_images,
+      MyStrings.explore_your_true_style,
+      MyStrings.relax_and_let_us_bring_the_style,
+      MyAssetsStrings.intro_page_three_images,
     ),
   ];
 

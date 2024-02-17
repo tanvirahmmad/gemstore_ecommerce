@@ -5,6 +5,7 @@ import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_bloc.dart';
+import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
 import 'package:gemstore_ecommerce/widgets/catagory_card_list.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
 import 'package:gemstore_ecommerce/widgets/heading_showall.dart';
@@ -154,16 +155,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return const SizedBox();
                 }),
+                AutumnCollection(),
+                SizedBox(height: 25,),
                 HeadingAndShowAll(headingtext: MyStrings.feature_products),
+                SizedBox(height:10 ,),
                 FeatureProductsSlider(),
                 HangOutSlider(),
                 HeadingAndShowAll(headingtext: MyStrings.recommended),
+                SizedBox(height: 20,),
                 RecomendedSliderImage(),
+                SizedBox(height: 20,),
                 HeadingAndShowAll(headingtext: MyStrings.top_colection),
                 TopCollectionSliderOne(),
                 TopCollectionSliderTwo(),
-                SizedBox(height: 18),
+                SizedBox(height: 30),
                 TopCollectionSlider(),
+                SizedBox(height: 35,),
               ],
             ),
           ),

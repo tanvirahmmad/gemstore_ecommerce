@@ -1,11 +1,9 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
-import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
 import 'package:gemstore_ecommerce/models/into_screen_model.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/intro_page_side_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -43,7 +41,7 @@ class IntroPageWidget extends StatelessWidget {
               Container(
                 child: Center(
                   child: Text(
-                    MyStrings.discover_something_new,
+                    introScreen.title,
                     style: TextStyle(
                       fontFamily: MyAssetsStrings.productSans,
                       color: Color(int.parse(MyColor.myColorFour)),
@@ -58,7 +56,7 @@ class IntroPageWidget extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  MyStrings.special_new_arrivals,
+                  introScreen.subTitle,
                   style: TextStyle(
                     fontFamily: MyAssetsStrings.productSans,
                     color: Color(int.parse(MyColor.myColorTwo)),
@@ -71,19 +69,23 @@ class IntroPageWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IntroPageSideWidget(designinRight: true),
+                  Opacity(
+                    opacity: index > 0? 1 : 0,
+                    child: IntroPageSideWidget(designinRight: true),
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.0)),
                     height: 368,
                     width: 261,
                     child: Image.asset(
-                      MyAssetsStrings.intro_page_one_images,
+                      introScreen.imagePath,
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-                  IntroPageSideWidget(
-                    designinRight: false,
+                  Opacity(
+                    opacity: index < length - 1? 1: 0,
+                    child: IntroPageSideWidget(designinRight: false),
                   ),
                 ],
               ),
@@ -116,7 +118,7 @@ class IntroPageWidget extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    NavigateToNavigationBar();
+                    MyRoutes.NavigateToNavigationBar(context);
                   },
                   child: Text(
                     MyStrings.shopping_now,
@@ -134,10 +136,5 @@ class IntroPageWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  NavigateToNavigationBar() {
-    Navigator.push(context as BuildContext,
-        MaterialPageRoute(builder: (context) => NavigationBarSet()));
   }
 }
