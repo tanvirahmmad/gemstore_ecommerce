@@ -32,14 +32,15 @@ class IntroPageWidget extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height * .40,
               width: MediaQuery.of(context).size.width,
-              color: Color(int.parse(MyColor.myColorFive)),
+              color: MyColor.myColorFive,
             ),
           ),
           Center(
-            child: Column(children: [
-              const SizedBox(height: 25),
-              Container(
-                child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 25),
+                Center(
                   child: Text(
                     introScreen.title,
                     style: TextStyle(
@@ -50,70 +51,66 @@ class IntroPageWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 13,
-              ),
-              Container(
-                child: Text(
+                const SizedBox(
+                  height: 13,
+                ),
+                Text(
                   introScreen.subTitle,
                   style: TextStyle(
-                    fontFamily: MyAssetsStrings.productSans,
+                    fontFamily: MyAssetsStrings.productSansMedium,
                     color: Color(int.parse(MyColor.myColorTwo)),
                     fontSize: 14,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w100,
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Opacity(
-                    opacity: index > 0? 1 : 0,
-                    child: IntroPageSideWidget(designinRight: true),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0)),
-                    height: 368,
-                    width: 261,
-                    child: Image.asset(
-                      introScreen.imagePath,
-                      fit: BoxFit.fitHeight,
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Opacity(
+                      opacity: index > 0 ? 1 : 0,
+                      child: IntroPageSideWidget(designinRight: true),
                     ),
-                  ),
-                  Opacity(
-                    opacity: index < length - 1? 1: 0,
-                    child: IntroPageSideWidget(designinRight: false),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              SmoothPageIndicator(
-                controller: pageController,
-                count: length,
-                effect: WormEffect(
-                  dotHeight: 8.0,
-                  dotWidth: 8.0,
-                  activeDotColor: Colors.white, // Color of the active dot
-                  paintStyle: PaintingStyle.stroke,
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0)),
+                      height: 368,
+                      width: 261,
+                      child: Image.asset(
+                        introScreen.imagePath,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                    Opacity(
+                      opacity: index < length - 1 ? 1 : 0,
+                      child: IntroPageSideWidget(designinRight: false),
+                    ),
+                  ],
                 ),
-                // You can choose different effects
-                // Color of inactive dots
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
-                child: ElevatedButton(
+                const SizedBox(
+                  height: 60,
+                ),
+                SmoothPageIndicator(
+                  controller: pageController,
+                  count: length,
+                  effect: const WormEffect(
+                    dotHeight: 8.0,
+                    dotWidth: 8.0,
+                    activeDotColor: Colors.white, // Color of the active dot
+                    paintStyle: PaintingStyle.stroke,
+                  ),
+                  // You can choose different effects
+                  // Color of inactive dots
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(193, 53),
+                    minimumSize: const Size(193, 53),
                     primary: Colors.grey.shade700,
-                    side: BorderSide(color: Colors.white, width: 1),
-                    shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.white, width: 1),
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                     ),
                   ),
@@ -130,8 +127,8 @@ class IntroPageWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         ],
       ),
