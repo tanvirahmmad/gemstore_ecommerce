@@ -16,5 +16,6 @@ class MyStrings {
   static const String show_all = "show all";
   static const String recommended = "Recommended";
   static const String top_colection = "Top Collection";
+  static const String search_bar = "Discover";
 
 }

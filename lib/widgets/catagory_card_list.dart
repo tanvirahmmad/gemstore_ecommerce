@@ -4,9 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class CatagoriesCardList extends StatelessWidget {
   final String? catagoryimage;
-  final String? catagorytext;
+
   const CatagoriesCardList(
-      {super.key, required this.catagoryimage, required this.catagorytext});
+      {super.key, required this.catagoryimage});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CatagoriesCardList extends StatelessWidget {
             ),
             subtitle: Container(
               alignment: Alignment.topCenter,
-              child: Text(catagorytext!),
+
             ),
           ),
         )));

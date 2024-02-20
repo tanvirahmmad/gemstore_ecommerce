@@ -99,25 +99,21 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-                  if (state is CatagoriesLoadingState) {
+                  if (state is ProductsLoadingState) {
                     return const Center(
                         child: CircularProgressIndicator.adaptive());
-                  } else if (state is CatagoriesLoadedState) {
+                  } else if (state is ProductsLoadedState) {
                     return SizedBox(
                       width: double.infinity,
                       height: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: state.catagorymodel.data?.length,
+                        itemCount: state.products.products?.currentPage?.bitLength,
                         itemBuilder: (context, index) {
-                          return Padding(
-                              padding: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 10),
-                              child: CatagoriesCardList(
-                                  catagoryimage:
-                                      state.catagorymodel.data?[index].image,
-                                  catagorytext:
-                                      state.catagorymodel.data?[index].name));
+
+
+
+
                         },
                       ),
                     );

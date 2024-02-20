@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/intro_screen_view.dart';
-import 'package:gemstore_ecommerce/features/screens/entry_screens/onboarding_state/on_boarding_state.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
 

@@ -9,4 +9,5 @@ class MyColor {
   static const String myColorSix = "0xff1D1F22";
   static const String myColorSeven = "0xff7376BD";
   static const String myColorEight = "0xff1D1F22";
+  static const String myColorNine = "0xff33302E";
 }

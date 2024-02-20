@@ -9,13 +9,15 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-class CatagoriesLoadingState extends HomeState {}
+class ProductsLoadingState extends HomeState {}
 
-class CatagoriesLoadedState extends HomeState {
-  final CatagoryModels  catagorymodel;
-  const CatagoriesLoadedState(this.catagorymodel);
+class ProductsLoadedState extends HomeState {
+  final Products  products;
+  const  ProductsLoadedState (this.products);
+
+
   @override
-  List<Object?> get props => [catagorymodel];
+  List<Object?> get props => [products];
 }
 
 class CatagoriesLoadingErrorState extends HomeState {

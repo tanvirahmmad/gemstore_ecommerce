@@ -8,25 +8,31 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<CatagoriesLoadedEvent, HomeState> {
-  HomeBloc() : super(CatagoriesLoadingState()) {
-    on<CatagoriesLoadedEvent>((event, emit) async {
+  HomeBloc() : super(ProductsLoadingState());
+
+  @override
+  Stream<HomeState> mapEventToState(CatagoriesLoadedEvent event) async* {
+    if (event is CatagoriesLoadedEvent) {
       try {
-        emit(CatagoriesLoadingState());
+        yield ProductsLoadingState();
         var response =
-            await https.get(Uri.parse("https://fluxstore.bengalquiz.xyz/api/category"));
+        await https.get(Uri.parse("https://fluxstore.bengalquiz.xyz/api/products"));
         if (response.statusCode == 200) {
-          emit(CatagoriesLoadedState(catagoryModelsFromJson(response.body) ));
+          // Parse the JSON response using productsFromJson function
+          Products products = productsFromJson(response.body);
+          yield ProductsLoadedState(products);
         } else {
           throw Exception("Failed to load error");
         }
       } catch (e) {
-        emit(CatagoriesLoadingErrorState(e.toString()));
+        yield CatagoriesLoadingErrorState(e.toString());
       }
-    });
+    }
   }
 }
+
 class HomeBannerBloc extends Bloc<BannerLoadedEvent, HomeState> {
-  HomeBannerBloc() : super(CatagoriesLoadingState()) {
+  HomeBannerBloc() : super(ProductsLoadingState()) {
     on<BannerLoadedEvent>((event, emit) async {
       try {
         emit(BannerLoadingState());
