@@ -95,7 +95,7 @@ class Product {
   double? discountPercent;
   int? stockLeft;
   List<String>? size;
-  List<Color>? color;
+  List<ProductColor>? color;
   int? ratingCount;
   int? ratingOne;
   int? ratingTwo;
@@ -139,11 +139,15 @@ class Product {
     discountPrice = double.parse(json['discount_price'].toString());
     discountPercent = double.parse(json['discount_percent'].toString());
     stockLeft = int.parse(json['stock_left'].toString());
-    size = json['size'].cast<String>();
+    if(json['size'] != null) {
+      size = json['size'].cast<String>();
+    } else {
+      size = null;
+    }
     if (json['color'] != null) {
-      color = <Color>[];
+      color = <ProductColor>[];
       json['color'].forEach((v) {
-        color!.add(Color.fromJson(v));
+        color!.add(ProductColor.fromJson(v));
       });
     }
     ratingCount = int.parse(json['rating_count'].toString());
@@ -185,13 +189,13 @@ class Product {
   }
 }
 
-class Color {
+class ProductColor {
   String? colorName;
   String? colorValue;
 
-  Color({this.colorName, this.colorValue});
+  ProductColor({this.colorName, this.colorValue});
 
-  Color.fromJson(Map<String, dynamic> json) {
+  ProductColor.fromJson(Map<String, dynamic> json) {
     colorName = json['colorName'];
     colorValue = json['colorValue'];
   }

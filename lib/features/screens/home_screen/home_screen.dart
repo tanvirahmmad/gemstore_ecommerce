@@ -7,6 +7,7 @@ import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.da
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/common/server_urls.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
 import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
 import 'package:gemstore_ecommerce/widgets/catagory_card_list.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     context.read<CategoryBloc>().add(GetAllCategory());
+    context.read<FeaturesProductsBloc>().add(GetFeaturesProducts());
     super.initState();
   }
 
@@ -102,7 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state is CategoryLoading) {
                   return const Center(
                       child: CupertinoActivityIndicator());
-                } else if (state is CategoryLoaded) {
+                }
+
+                if (state is CategoryLoaded) {
                   return SizedBox(
                     width: double.infinity,
                     height: 200,
@@ -126,7 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   );
-                } else if (state is CategoryError) {
+                }
+
+                if (state is CategoryError) {
                   return Center(child: Text(state.error));
                 }
                 return const SizedBox();

@@ -7,5 +7,5 @@ abstract class CategoryEvent extends Equatable {
 
 class GetAllCategory extends CategoryEvent {
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
