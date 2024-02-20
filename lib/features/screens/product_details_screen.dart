@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
