@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
-import 'package:gemstore_ecommerce/features/screens/home_screen/home_bloc.dart';
+import 'package:gemstore_ecommerce/common/server_urls.dart';
+import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
+import 'package:gemstore_ecommerce/models/category_response.dart';
 import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
 import 'package:gemstore_ecommerce/widgets/catagory_card_list.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
@@ -23,6 +26,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    context.read<CategoryBloc>().add(GetAllCategory());
+    super.initState();
+  }
+
   Future<bool> _onWillPop(BuildContext context) async {
     await showDialog(
       context: context,
@@ -52,123 +62,121 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => _onWillPop(context),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<HomeBloc>(
-            create: (context) => HomeBloc()..add(CatagoriesLoadedEvent()),
-          ),
-          BlocProvider<HomeBannerBloc>(
-            create: (context) => HomeBannerBloc()..add(BannerLoadedEvent()),
-          ),
-          // Add more BlocProviders as needed
-        ],
-        child: Scaffold(
-          appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    MyStrings.home_page_status,
-                    style: TextStyle(
-                      fontFamily: MyAssetsStrings.productSans,
-                      fontSize: 20,
-                      color: Color(int.parse(MyColor.myColorTwo)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            automaticallyImplyLeading: false,
-            actions: [
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               Container(
-                child: IconButton(
-                  icon: Image.asset(
-                    MyAssetsStrings.bell_icon,
+                padding: const EdgeInsets.only(left: 20),
+                child: Text(
+                  MyStrings.home_page_status,
+                  style: TextStyle(
+                    fontFamily: MyAssetsStrings.productSans,
+                    fontSize: 20,
+                    color: Color(int.parse(MyColor.myColorTwo)),
                   ),
-                  onPressed: () {},
                 ),
               ),
             ],
-            backgroundColor: Colors.transparent,
-            elevation: 0,
           ),
-          body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-                  if (state is ProductsLoadingState) {
-                    return const Center(
-                        child: CircularProgressIndicator.adaptive());
-                  } else if (state is ProductsLoadedState) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.products.products?.currentPage?.bitLength,
-                        itemBuilder: (context, index) {
-
-
-
-
-                        },
-                      ),
-                    );
-                  } else if (state is CatagoriesLoadingErrorState) {
-                    return Center(child: Text(state.errormessege));
-                  }
-                  return const SizedBox();
-                }),
-                SizedBox(
-                  height: 30,
+          automaticallyImplyLeading: false,
+          actions: [
+            Container(
+              child: IconButton(
+                icon: Image.asset(
+                  MyAssetsStrings.bell_icon,
                 ),
-                BlocBuilder<HomeBannerBloc, HomeState>(
-                    builder: (context, state) {
-                  if (state is BannerLoadingState) {
-                    return const Center(
-                        child: CircularProgressIndicator.adaptive());
-                  } else if (state is BannerLoadedState) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 8,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 10),
-                              child: Text(
-                                  state.products[index].title!.toString()));
-                        },
-                      ),
-                    );
-                  } else if (state is BannerLoadingErrorState) {
-                    return Center(child: Text(state.ermessege));
-                  }
-                  return const SizedBox();
-                }),
-                AutumnCollection(),
-                SizedBox(height: 25,),
-                HeadingAndShowAll(headingtext: MyStrings.feature_products),
-                SizedBox(height:10 ,),
-                FeatureProductsSlider(),
-                HangOutSlider(),
-                HeadingAndShowAll(headingtext: MyStrings.recommended),
-                SizedBox(height: 20,),
-                RecomendedSliderImage(),
-                SizedBox(height: 20,),
-                HeadingAndShowAll(headingtext: MyStrings.top_colection),
-                TopCollectionSliderOne(),
-                TopCollectionSliderTwo(),
-                SizedBox(height: 30),
-                TopCollectionSlider(),
-                SizedBox(height: 35,),
-              ],
+                onPressed: () {},
+              ),
             ),
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+                if (state is CategoryLoading) {
+                  return const Center(
+                      child: CupertinoActivityIndicator());
+                } else if (state is CategoryLoaded) {
+                  return SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.categoryResponse.data?.length ?? 0,
+                      itemBuilder: (context, index) {
+
+                        Category category = state.categoryResponse.data![index];
+
+                        return Column(
+                          children: [
+                            Image.network(
+                              "${ServerUrls.baseImageUrl}${category.image}",
+                              width: 50,
+                              height: 50,
+                            ),
+                            Text(category.name ?? "-"),
+                          ],
+                        );
+                      },
+                    ),
+                  );
+                } else if (state is CategoryError) {
+                  return Center(child: Text(state.error));
+                }
+                return const SizedBox();
+              }),
+              SizedBox(
+                height: 30,
+              ),
+              // BlocBuilder<HomeBannerBloc, HomeState>(
+              //     builder: (context, state) {
+              //   if (state is BannerLoadingState) {
+              //     return const Center(
+              //         child: CircularProgressIndicator.adaptive());
+              //   } else if (state is BannerLoadedState) {
+              //     return SizedBox(
+              //       width: double.infinity,
+              //       height: 200,
+              //       child: ListView.builder(
+              //         scrollDirection: Axis.horizontal,
+              //         itemCount: 8,
+              //         itemBuilder: (context, index) {
+              //           return Padding(
+              //               padding: EdgeInsets.only(
+              //                   left: 10, right: 10, bottom: 10),
+              //               child: Text(
+              //                   state.products[index].title!.toString()));
+              //         },
+              //       ),
+              //     );
+              //   } else if (state is BannerLoadingErrorState) {
+              //     return Center(child: Text(state.ermessege));
+              //   }
+              //   return const SizedBox();
+              // }),
+              AutumnCollection(),
+              SizedBox(height: 25,),
+              HeadingAndShowAll(headingtext: MyStrings.feature_products),
+              SizedBox(height:10 ,),
+              FeatureProductsSlider(),
+              HangOutSlider(),
+              HeadingAndShowAll(headingtext: MyStrings.recommended),
+              SizedBox(height: 20,),
+              RecomendedSliderImage(),
+              SizedBox(height: 20,),
+              HeadingAndShowAll(headingtext: MyStrings.top_colection),
+              TopCollectionSliderOne(),
+              TopCollectionSliderTwo(),
+              SizedBox(height: 30),
+              TopCollectionSlider(),
+              SizedBox(height: 35,),
+            ],
           ),
         ),
       ),
