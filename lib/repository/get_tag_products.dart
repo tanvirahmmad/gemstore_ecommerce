@@ -5,10 +5,10 @@ import 'package:gemstore_ecommerce/common/server_urls.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:http/http.dart' as https;
 
-class FlatsProductsRepository {
-  Future<ProductResponse> getFlatsProducts() async {
+class GetAllProductsRepository {
+  Future<ProductResponse> getFeaturesProducts(String tag) async {
     try {
-      var response = await https.get(Uri.parse(ServerUrls.flatProducts));
+      var response = await https.get(Uri.parse(ServerUrls.tagUrls(tag)));
 
       print(response.body);
 
