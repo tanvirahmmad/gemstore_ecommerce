@@ -29,5 +29,5 @@ class FeaturesProductsError extends FeaturesProductsState {
   const FeaturesProductsError(this.error);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [error];
 }

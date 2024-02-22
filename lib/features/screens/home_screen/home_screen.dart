@@ -8,9 +8,9 @@ import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/common/server_urls.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/home_screen/sharees_bloc/shrees_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
 import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
-import 'package:gemstore_ecommerce/widgets/catagory_card_list.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
 import 'package:gemstore_ecommerce/widgets/heading_showall.dart';
 import 'package:gemstore_ecommerce/widgets/hangout_slider_widget.dart';
@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     context.read<CategoryBloc>().add(GetAllCategory());
     context.read<FeaturesProductsBloc>().add(GetFeaturesProducts());
+    context.read<ShreesProductsBloc>().add(GetShareesProducts());
     super.initState();
   }
 
@@ -173,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
               FeatureProductsSlider(),
               HangOutSlider(),
               HeadingAndShowAll(headingtext: MyStrings.recommended),
-              SizedBox(height: 20,),
               RecomendedSliderImage(),
               SizedBox(height: 20,),
               HeadingAndShowAll(headingtext: MyStrings.top_colection),

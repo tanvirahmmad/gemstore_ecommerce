@@ -35,32 +35,37 @@ class FeatureProductsSlider extends StatelessWidget {
 
                   Product product = state.productResponse.products!.product![index];
 
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        product.thumbnail!,
-                        height: 172,
-                        width: 126,
-                      ),
-                      Text(
-                        product.name!,
-                        style: TextStyle(
-                          fontFamily: MyAssetsStrings.productSansMedium,
-                          fontSize: 12,
-                          color: Color(int.parse(MyColor.myColorSix)),
+                  return Container(height: 227,
+                    width: 127,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          product.thumbnail!,
+                        //  height: 172,
+                          //width: 126,
                         ),
-                      ),
-                      Text(
-                        "\$ ${product.price}",
-                        style: TextStyle(
-                          fontFamily: MyAssetsStrings.productSansMedium,
-                          fontSize: 16,
-                          color: Color(int.parse(MyColor.myColorSix)),
+                        Text(
+                          product.name!,
+                          maxLines: 3, // You can adjust this based on your design
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: MyAssetsStrings.productSansMedium,
+                            fontSize: 12,
+                            color: Color(int.parse(MyColor.myColorSix)),
+                          ),
                         ),
-                      )
-                    ],
+                        Text(
+                          "\$ ${product.price}",
+                          style: TextStyle(
+                            fontFamily: MyAssetsStrings.productSansMedium,
+                            fontSize: 16,
+                            color: Color(int.parse(MyColor.myColorSix)),
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 },
               ),
