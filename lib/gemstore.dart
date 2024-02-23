@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/splash_screen/SplashScreen.dart';
 import 'package:gemstore_ecommerce/repository/category_repository.dart';
 import 'package:gemstore_ecommerce/repository/get_tag_products.dart';
@@ -105,7 +106,7 @@ class Gemstore extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: false,
           ),
-          home: SplashScreen(),
+          home: HomeScreen(),
         ),
       ),
     );

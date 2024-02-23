@@ -24,7 +24,7 @@ class FeatureProductsSlider extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: SizedBox(
-              height: 250,
+              height: 230,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
@@ -37,18 +37,22 @@ class FeatureProductsSlider extends StatelessWidget {
 
                   return Container(height: 227,
                     width: 127,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.network(
-                          product.thumbnail!,
-                        //  height: 172,
-                          //width: 126,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+                          child: Image.network(
+                            product.thumbnail!,
+                            // height: 172,
+                            // width: 126,
+                          ),
                         ),
                         Text(
                           product.name!,
-                          maxLines: 3, // You can adjust this based on your design
+                          maxLines: 2, // You can adjust this based on your design
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontFamily: MyAssetsStrings.productSansMedium,

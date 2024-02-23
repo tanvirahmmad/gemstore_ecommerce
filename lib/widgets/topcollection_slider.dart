@@ -22,10 +22,12 @@ class TopCollectionSlider extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Row(
               children: [
-                Image.asset(
+            ClipRRect(
+            borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+            child:Image.asset(
                   MyAssetsStrings.office_tshirt,
                 ),
-
+            ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,

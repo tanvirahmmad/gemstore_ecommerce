@@ -14,13 +14,14 @@ class TopCollectionSliderOne extends StatelessWidget {
             return SizedBox(width: 7,);
           },
           itemBuilder: (BuildContext  context,int index){
-            return InkWell(
-              child: Image.asset(
-                MyAssetsStrings.slimbeauty,
-                height: 141.03,
-                width: 312,
-              ),
-            );}
+            return
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+            child: Image.asset(
+              MyAssetsStrings.slimbeauty,
+              height: 141.03,
+              width: 312,
+            ),);}
       ),
     );
   }

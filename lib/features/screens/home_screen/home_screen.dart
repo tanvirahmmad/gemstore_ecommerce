@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const SizedBox();
               }),
               SizedBox(
-                height: 30,
+                height: 5,
               ),
               // BlocBuilder<HomeBannerBloc, HomeState>(
               //     builder: (context, state) {
@@ -170,16 +170,18 @@ class _HomeScreenState extends State<HomeScreen> {
               AutumnCollection(),
               SizedBox(height: 25,),
               HeadingAndShowAll(headingtext: MyStrings.feature_products),
-              SizedBox(height:10 ,),
+              SizedBox(height:6 ),
               FeatureProductsSlider(),
               HangOutSlider(),
+              SizedBox(height: 15),
               HeadingAndShowAll(headingtext: MyStrings.recommended),
               RecomendedSliderImage(),
               SizedBox(height: 20,),
               HeadingAndShowAll(headingtext: MyStrings.top_colection),
+              SizedBox(height: 15),
               TopCollectionSliderOne(),
               TopCollectionSliderTwo(),
-              SizedBox(height: 30),
+              SizedBox(height: 18),
               TopCollectionSlider(),
               SizedBox(height: 35,),
             ],

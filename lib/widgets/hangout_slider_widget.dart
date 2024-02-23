@@ -14,7 +14,8 @@ class HangOutSlider extends StatelessWidget {
           return SizedBox(width: 7,);
         },
         itemBuilder: (BuildContext  context,int index){
-        return InkWell(onTap: (){},
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
           child: Image.asset(
             MyAssetsStrings.hangout,
             height: 158,
