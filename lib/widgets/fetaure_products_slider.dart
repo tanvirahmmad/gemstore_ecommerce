@@ -6,6 +6,7 @@ import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.da
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 
 class FeatureProductsSlider extends StatelessWidget {
   const FeatureProductsSlider({Key? key}) : super(key: key);
@@ -35,40 +36,45 @@ class FeatureProductsSlider extends StatelessWidget {
 
                   Product product = state.productResponse.products!.product![index];
 
-                  return Container(height: 227,
-                    width: 127,
+                  return InkWell(
+                    onTap: () {
+                      MyRoutes.navigateToProductDetailsScreen(context, product);
+                    },
+                    child: Container(height: 227,
+                      width: 127,
 
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
-                          child: Image.network(
-                            product.thumbnail!,
-                            // height: 172,
-                            // width: 126,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+                            child: Image.network(
+                              product.thumbnail!,
+                              // height: 172,
+                              // width: 126,
+                            ),
                           ),
-                        ),
-                        Text(
-                          product.name!,
-                          maxLines: 2, // You can adjust this based on your design
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontFamily: MyAssetsStrings.productSansMedium,
-                            fontSize: 12,
-                            color: Color(int.parse(MyColor.myColorSix)),
+                          Text(
+                            product.name!,
+                            maxLines: 2, // You can adjust this based on your design
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: MyAssetsStrings.productSansMedium,
+                              fontSize: 12,
+                              color: Color(int.parse(MyColor.myColorSix)),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "\$ ${product.price}",
-                          style: TextStyle(
-                            fontFamily: MyAssetsStrings.productSansMedium,
-                            fontSize: 16,
-                            color: Color(int.parse(MyColor.myColorSix)),
-                          ),
-                        )
-                      ],
+                          Text(
+                            "\$ ${product.price}",
+                            style: TextStyle(
+                              fontFamily: MyAssetsStrings.productSansMedium,
+                              fontSize: 16,
+                              color: Color(int.parse(MyColor.myColorSix)),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
