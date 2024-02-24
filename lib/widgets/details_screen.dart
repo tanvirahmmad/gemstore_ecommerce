@@ -21,37 +21,110 @@ List<Color> myColor = [
 Color primarycolor = myColor[0];
 
 class _DetailsScreenState extends State<DetailsScreen> {
+
+  final ScrollController _sliverScrollController = ScrollController();
+  final ValueNotifier<bool> isPinned = ValueNotifier<bool>(false);
+
+
+  @override
+  void initState() {
+    _sliverScrollController.addListener(() {
+       if(_sliverScrollController.offset > 400) {
+         isPinned.value = true;
+       } else {
+         isPinned.value = false;
+       }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness:
-          Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_border),
-          )
-        ],
-      ),
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          Image.network(
-            widget.product.thumbnail!,
-            fit: BoxFit.fitWidth,
+      body: CustomScrollView(
+        controller: _sliverScrollController,
+        slivers: [
+          SliverAppBar(
+            snap: false,
+            pinned: true,
+            floating: false,
+            elevation: 0,
+            systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness:
+              Brightness.dark, // For Android (dark icons)
+              statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                background: Image.network(
+                  widget.product.thumbnail!,
+                  fit: BoxFit.fitWidth,
+                ) //Images.network
+            ),
+            title: ValueListenableBuilder(
+              valueListenable: isPinned,
+              builder: (context, value, _) {
+                return Text(
+                  value ? widget.product.name ?? "-" : "",
+                  style: const TextStyle(color: Colors.black),
+                );
+              },
+            ),
+            expandedHeight: 500,
+            backgroundColor: Colors.white,
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.favorite_border,color: Colors.amber,),
+                tooltip: 'Setting Icon',
+                onPressed: () {},
+              ), //IconButton
+            ],
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back,color: Colors.amber,),
+              tooltip: 'Setting Icon',
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+
           ),
 
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.product.name ?? "-"),
 
+                  SizedBox(height: 15,),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.favorite),
+                          Icon(Icons.favorite),
+                          Icon(Icons.favorite),
+                          Icon(Icons.favorite),
+                          Icon(Icons.favorite),
+                          Text("(100)"),
+                        ],
+                      ),
+
+
+                      Text("\$ 8000"),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
         ],
-      ),
+      )
     );
 
 
