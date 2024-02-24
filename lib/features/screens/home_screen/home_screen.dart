@@ -27,7 +27,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     context.read<CategoryBloc>().add(GetAllCategory());
@@ -66,12 +65,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return WillPopScope(
       onWillPop: () async => _onWillPop(context),
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness:
+                Brightness.dark, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 19),
                 child: Text(
                   MyStrings.home_page_status,
                   style: TextStyle(
@@ -95,40 +101,55 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
           backgroundColor: Colors.transparent,
-          elevation: 0,
+          elevation: 0
         ),
-        body: SingleChildScrollView(
+
+        body:
+        SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+              BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
                 if (state is CategoryLoading) {
-                  return const Center(
-                      child: CupertinoActivityIndicator());
+                  return const Center(child: CupertinoActivityIndicator());
                 }
 
                 if (state is CategoryLoaded) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.categoryResponse.data?.length ?? 0,
-                      itemBuilder: (context, index) {
-
-                        Category category = state.categoryResponse.data![index];
-
-                        return Column(
-                          children: [
-                            Image.network(
-                              "${ServerUrls.baseImageUrl}${category.image}",
-                              width: 50,
-                              height: 50,
-                            ),
-                            Text(category.name ?? "-"),
-                          ],
-                        );
-                      },
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15)
+                        .copyWith(top: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 109,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ...state.categoryResponse.data!
+                              .asMap()
+                              .entries
+                              .map((e) {
+                            return Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: MyColor.catagory_icon_color,
+                                  ),
+                                  child: Image.asset(
+                                    MyAssetsStrings.catagoryImage[e.key],
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                Text(e.value.name ?? "-"),
+                              ],
+                            );
+                          }).toList(),
+                        ],
+                      ),
                     ),
                   );
                 }
@@ -138,9 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
                 return const SizedBox();
               }),
-              SizedBox(
-                height: 5,
-              ),
+
               // BlocBuilder<HomeBannerBloc, HomeState>(
               //     builder: (context, state) {
               //   if (state is BannerLoadingState) {
@@ -168,22 +187,30 @@ class _HomeScreenState extends State<HomeScreen> {
               //   return const SizedBox();
               // }),
               AutumnCollection(),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 10,
+              ),
               HeadingAndShowAll(headingtext: MyStrings.feature_products),
-              SizedBox(height:6 ),
               FeatureProductsSlider(),
+              SizedBox(height: 10,),
               HangOutSlider(),
               SizedBox(height: 15),
               HeadingAndShowAll(headingtext: MyStrings.recommended),
+              SizedBox(height: 15,),
               RecomendedSliderImage(),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 15,
+              ),
               HeadingAndShowAll(headingtext: MyStrings.top_colection),
-              SizedBox(height: 15),
+              SizedBox(height: 7,),
               TopCollectionSliderOne(),
+
               TopCollectionSliderTwo(),
-              SizedBox(height: 18),
+              SizedBox(height: 7),
               TopCollectionSlider(),
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 15,
+              ),
             ],
           ),
         ),

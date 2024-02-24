@@ -6,24 +6,22 @@ class TopCollectionSliderOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   SizedBox(height: 141.03,
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          separatorBuilder: (BuildContext context,int index){
-            return SizedBox(width: 7,);
-          },
-          itemBuilder: (BuildContext  context,int index){
-            return
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
-            child: Image.asset(
-              MyAssetsStrings.slimbeauty,
-              height: 141.03,
-              width: 312,
-            ),);}
+    return   Padding(
+      padding: const EdgeInsets.all(11.0),
+      child: InkWell(
+        onTap: () {
+          // Handle the onTap event if needed
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+          child: Image.asset(
+            MyAssetsStrings.slimbeauty,
+            fit: BoxFit.contain, // Use BoxFit.cover to maintain aspect ratio and cover the entire box
+          ),
+        ),
       ),
     );
+    ;
   }
 
 }

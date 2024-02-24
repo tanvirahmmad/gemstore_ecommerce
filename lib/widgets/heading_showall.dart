@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
@@ -8,7 +6,7 @@ import 'package:gemstore_ecommerce/common/my_strings.dart';
 class HeadingAndShowAll extends StatelessWidget {
   final String? headingtext;
 
-  const HeadingAndShowAll({super.key, required this.headingtext});
+  const HeadingAndShowAll({Key? key, required this.headingtext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +23,19 @@ class HeadingAndShowAll extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.bold),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              MyStrings.show_all,
-              style: TextStyle(
-                  color: Colors.black54,
-                  fontFamily: MyAssetsStrings.productSans,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800),
-            ),
-          )
-        ],
-      ),
-    );
+
+        TextButton(
+          onPressed: () {},
+          child: Text(
+            MyStrings.show_all,
+            style: TextStyle(
+                color: Colors.black54,
+                fontFamily: MyAssetsStrings.productSans,
+                fontSize: 13,
+                fontWeight: FontWeight.w800),
+          ),
+        ),
+      ],
+    ));
   }
 }

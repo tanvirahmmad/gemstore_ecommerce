@@ -6,16 +6,12 @@ class AutumnCollection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          child: Image.asset(
-            MyAssetsStrings.autumn_collection,
-            height: 268,
-            width: 512,
-          ),
-        ),
-      ],
+    return Container(
+      child: Image.asset(
+        MyAssetsStrings.autumn_collection,
+        height:168,
+        width: MediaQuery.of(context).size.width,
+      ),
     );
   }
 }

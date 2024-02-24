@@ -6,22 +6,10 @@ class HangOutSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(height: 150,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        separatorBuilder: (BuildContext context,int index){
-          return SizedBox(width: 7,);
-        },
-        itemBuilder: (BuildContext  context,int index){
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
-          child: Image.asset(
-            MyAssetsStrings.hangout,
-            height: 158,
-            width: 424,
-          ),
-        );}
+    return  SizedBox(width: MediaQuery.of(context).size.width*.99,
+      child: Image.asset(
+        MyAssetsStrings.hangout,
+fit: BoxFit.contain,
       ),
     );
   }

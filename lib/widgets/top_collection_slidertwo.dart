@@ -6,23 +6,23 @@ class TopCollectionSliderTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   SizedBox(height: 229,
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          separatorBuilder: (BuildContext context,int index){
-            return SizedBox(width: 7,);
-          },
-          itemBuilder: (BuildContext  context,int index){
-            return InkWell(
-              child: Image.asset(
-                MyAssetsStrings.mostsexy,
-                height: 229,
-                width: 312,
-              ),
-            );}
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 7,right: 10,left: 10),
+      child: InkWell(
+        onTap: () {
+          // Handle the onTap event if needed
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+          child: Image.asset(
+
+            MyAssetsStrings.mostsexy,
+            fit: BoxFit.contain, // Use BoxFit.cover to maintain aspect ratio and cover the entire box
+          ),
+        ),
       ),
     );
+
   }
 
 }

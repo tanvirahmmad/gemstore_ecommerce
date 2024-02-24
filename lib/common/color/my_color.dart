@@ -12,4 +12,5 @@ class MyColor {
   static const String myColorSeven = "0xff7376BD";
   static const String myColorEight = "0xff1D1F22";
   static const String myColorNine = "0xff33302E";
+  static const Color catagory_icon_color  = Color(0xffF3F3F3);
 }
