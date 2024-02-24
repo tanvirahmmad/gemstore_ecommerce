@@ -29,11 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     _sliverScrollController.addListener(() {
-       if(_sliverScrollController.offset > 400) {
-         isPinned.value = true;
-       } else {
-         isPinned.value = false;
-       }
+      isPinned.value = _sliverScrollController.offset > 400;
     });
   }
 
