@@ -82,22 +82,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                background: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          selectedColor ?? Colors.transparent,
-                          BlendMode.modulate,
-                        ),
-                        child: Image.network(
-                          widget.product.thumbnail!,
-                          fit: BoxFit.fill,
-                        ),
+                background: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        selectedColor ?? Colors.transparent,
+                        BlendMode.modulate,
                       ),
-                    ],
-                  ),
+                      child: Image.network(
+                        widget.product.thumbnail!,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
                 ), //Images.network
               ),
               title: ValueListenableBuilder(
