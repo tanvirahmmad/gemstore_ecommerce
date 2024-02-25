@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
 import 'package:gemstore_ecommerce/widgets/half_filled_icon.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -16,8 +17,6 @@ class DetailsScreen extends StatefulWidget {
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
-
-
 class _DetailsScreenState extends State<DetailsScreen> {
   final ScrollController _sliverScrollController = ScrollController();
   final ValueNotifier<bool> isPinned = ValueNotifier<bool>(false);
@@ -28,10 +27,49 @@ class _DetailsScreenState extends State<DetailsScreen> {
       isPinned.value = _sliverScrollController.offset > 400;
     });
   }
+
   Color? selectedColor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30)
+            )
+          ),
+          child: BottomAppBar(
+
+            color: Colors.black,
+
+            child: Container(
+              height: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: IconButton(
+                      icon: Image.asset(
+                        MyAssetsStrings.add_to_bag,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.black),
+                      onPressed: () {},
+                      child: Text("Add To Cart",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: MyAssetsStrings.productSans,
+                              fontWeight: FontWeight.bold)))
+                ],
+              ),
+            ),
+          ),
+        ),
         extendBodyBehindAppBar: true,
         body: CustomScrollView(
           controller: _sliverScrollController,
@@ -48,8 +86,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 statusBarBrightness: Brightness.light, // For iOS (dark icons)
               ),
               flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  background: Column(
+                centerTitle: true,
+                background: SingleChildScrollView(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ColorFiltered(
@@ -63,8 +102,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                       ),
                     ],
-                  ),//Images.network
                   ),
+                ), //Images.network
+              ),
               title: ValueListenableBuilder(
                 valueListenable: isPinned,
                 builder: (context, value, _) {
@@ -77,24 +117,56 @@ class _DetailsScreenState extends State<DetailsScreen> {
               expandedHeight: 500,
               backgroundColor: Colors.white,
               actions: <Widget>[
-                IconButton(
-                  icon: const Icon(
-                    Icons.favorite_border,
-                    color: Colors.amber,
+        Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 2,
+              offset: Offset(0,
+                  1), // changes the position of the shadow
+            ),
+          ],
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.favorite_border_outlined,
+                      color: Colors.black,
+                    ),
+                    tooltip: 'Setting Icon',
+                    onPressed: () {},
                   ),
-                  tooltip: 'Setting Icon',
-                  onPressed: () {},
                 ), //IconButton
               ],
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.amber,
+              leading: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 2,
+                        offset: Offset(0,
+                            1), // changes the position of the shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(30.0),
+                   ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.black,
+                  ),
+
+
+                  tooltip: 'Setting Icon',
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
-                tooltip: 'Setting Icon',
-                onPressed: () {
-                  Navigator.pop(context);
-                },
               ),
             ),
             SliverToBoxAdapter(
@@ -108,17 +180,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.product.name ?? "-",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: MyAssetsStrings.productSans,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          width: 200,
+                          child: Text(
+                            widget.product.name ?? "-",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: MyAssetsStrings.productSans,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 2, // Set the maximum number of lines
+                            overflow: TextOverflow
+                                .ellipsis, // Handle overflow with ellipsis (...) or other options
                           ),
-                          maxLines: 2,  // Set the maximum number of lines
-                          overflow: TextOverflow.ellipsis,  // Handle overflow with ellipsis (...) or other options
                         ),
-
                         Text("\$ 8000",
                             style: TextStyle(
                                 fontSize: 26,
@@ -151,41 +226,58 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               print(val);
                             })
                       ],
-                    ), SizedBox(height: 28),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
+                    SizedBox(height: 28),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(height: 20,
+                        Container(
+                          height: 20,
                           width: 39,
-                          child: Text("Color", style: TextStyle(
-                              fontSize: 14,color:Colors.grey ,
-                              fontFamily: MyAssetsStrings
-                                  .productSansMedium)),
+                          child: Text("Color",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  fontFamily:
+                                      MyAssetsStrings.productSansMedium)),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            buildColorButton(MyColor.pic_changed_color_Normal_Pink),
-                           SizedBox(width: 12,),
+                            buildColorButton(
+                                MyColor.pic_changed_color_Normal_Pink),
+                            SizedBox(
+                              width: 12,
+                            ),
                             buildColorButton(Colors.green),
-                            SizedBox(width: 12,),
-                            buildColorButton(MyColor.pic_changed_color_DeepPink),
-                            SizedBox(width: 12,),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            buildColorButton(
+                                MyColor.pic_changed_color_DeepPink),
+                            SizedBox(
+                              width: 12,
+                            ),
                             Container(
-                            height: 45,
-                                width:45,decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 7,
-                                    offset: Offset(0, 3), // changes the position of the shadow
-                                  ),
-                                ],
-                                borderRadius:
-                                BorderRadius.circular(25.0),
-                              border: Border.all(color: Colors.black12,width: 6)
-                            ),child: buildColorButton(Colors.white)),
+                                height: 45,
+                                width: 45,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 3,
+                                        blurRadius: 7,
+                                        offset: Offset(0,
+                                            3), // changes the position of the shadow
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    border: Border.all(
+                                        color: Colors.black12, width: 6)),
+                                child: buildColorButton(Colors.white)),
                           ],
                         ),
                       ],
@@ -222,25 +314,28 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ],
                               )),
                           AccordionSection(
-                              isOpen: true,
+                              isOpen: false,
                               header: Text(
                                 "Review",
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: MyAssetsStrings.productSans),
                               ),
-                              content: Text("jhkjh")),
+                              content: Text("This site's all product are fantastic."
+                              ,  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: MyAssetsStrings
+                                          .productsanslight))),
                           AccordionSection(
-                              isOpen: true,
+                              isOpen: false,
                               header: Text(
                                 "Similar Product",
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: MyAssetsStrings.productSans),
                               ),
-                              content: Text("jhkjh")),
+                              content: FeatureProductsSlider()),
                         ]),
-
                   ],
                 ),
               ),
@@ -248,7 +343,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ],
         ));
   }
-
 
   Widget buildColorButton(Color color) {
     return GestureDetector(
@@ -280,5 +374,3 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 }
-
-

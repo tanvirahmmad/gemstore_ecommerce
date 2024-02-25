@@ -32,7 +32,8 @@ class MyAssetsStrings {
   static const String Navigator_profile_image =
       "assets/navigation_bar_images/Profile.png";
   static const String women_section = "assets/icons/women.png";
-
+  static const String add_to_bag  =
+      "assets/icons/addtobag.png";
   static List<String> catagoryImage = [
     "assets/icons/dress.png",
     "assets/icons/shoes.png",
