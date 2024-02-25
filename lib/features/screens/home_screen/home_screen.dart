@@ -91,13 +91,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             automaticallyImplyLeading: false,
             actions: [
-              Container(
-                child: IconButton(
-                  icon: Image.asset(
-                    MyAssetsStrings.bell_icon,
-                  ),
-                  onPressed: () {},
+              IconButton(
+                icon: Image.asset(
+                  MyAssetsStrings.bell_icon,
                 ),
+                onPressed: () {},
               ),
             ],
             backgroundColor: Colors.transparent,
