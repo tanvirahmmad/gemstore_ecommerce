@@ -67,45 +67,42 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.white,
-            statusBarIconBrightness:
-                Brightness.dark, // For Android (dark icons)
-            statusBarBrightness: Brightness.light, // For iOS (dark icons)
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(left: 19),
-                child: Text(
-                  MyStrings.home_page_status,
-                  style: TextStyle(
-                    fontFamily: MyAssetsStrings.productSans,
-                    fontSize: 20,
-                    color: Color(int.parse(MyColor.myColorTwo)),
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.white,
+              statusBarIconBrightness:
+                  Brightness.dark, // For Android (dark icons)
+              statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 19),
+                  child: Text(
+                    MyStrings.home_page_status,
+                    style: TextStyle(
+                      fontFamily: MyAssetsStrings.productSans,
+                      fontSize: 20,
+                      color: Color(int.parse(MyColor.myColorTwo)),
+                    ),
                   ),
+                ),
+              ],
+            ),
+            automaticallyImplyLeading: false,
+            actions: [
+              Container(
+                child: IconButton(
+                  icon: Image.asset(
+                    MyAssetsStrings.bell_icon,
+                  ),
+                  onPressed: () {},
                 ),
               ),
             ],
-          ),
-          automaticallyImplyLeading: false,
-          actions: [
-            Container(
-              child: IconButton(
-                icon: Image.asset(
-                  MyAssetsStrings.bell_icon,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ],
-          backgroundColor: Colors.transparent,
-          elevation: 0
-        ),
-
-        body:
-        SingleChildScrollView(
+            backgroundColor: Colors.transparent,
+            elevation: 0),
+        body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
@@ -143,7 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     MyAssetsStrings.catagoryImage[e.key],
                                   ),
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Text(e.value.name ?? "-"),
                               ],
                             );
@@ -192,17 +191,23 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               HeadingAndShowAll(headingtext: MyStrings.feature_products),
               FeatureProductsSlider(),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               HangOutSlider(),
               SizedBox(height: 15),
               HeadingAndShowAll(headingtext: MyStrings.recommended),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               RecomendedSliderImage(),
               SizedBox(
                 height: 15,
               ),
               HeadingAndShowAll(headingtext: MyStrings.top_colection),
-              SizedBox(height: 7,),
+              SizedBox(
+                height: 7,
+              ),
               TopCollectionSliderOne(),
 
               TopCollectionSliderTwo(),

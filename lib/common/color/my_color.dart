@@ -13,4 +13,7 @@ class MyColor {
   static const String myColorEight = "0xff1D1F22";
   static const String myColorNine = "0xff33302E";
   static const Color catagory_icon_color  = Color(0xffF3F3F3);
+  static const Color rattingbar_icon_color  = Color(0xff508A7B);
+  static const Color pic_changed_color_Normal_Pink  = Color(0xffE7C0A7);
+  static const Color pic_changed_color_DeepPink  = Color(0xffEE6969);
 }

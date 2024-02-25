@@ -1,8 +1,11 @@
+import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/widgets/half_filled_icon.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Product product;
@@ -13,18 +16,11 @@ class DetailsScreen extends StatefulWidget {
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
-List<Color> myColor = [
-  Colors.pinkAccent.shade100,
-  Colors.black,
-  Colors.pinkAccent
-];
-Color primarycolor = myColor[0];
+
 
 class _DetailsScreenState extends State<DetailsScreen> {
-
   final ScrollController _sliverScrollController = ScrollController();
   final ValueNotifier<bool> isPinned = ValueNotifier<bool>(false);
-
 
   @override
   void initState() {
@@ -32,198 +28,257 @@ class _DetailsScreenState extends State<DetailsScreen> {
       isPinned.value = _sliverScrollController.offset > 400;
     });
   }
-
+  Color? selectedColor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: CustomScrollView(
-        controller: _sliverScrollController,
-        slivers: [
-          SliverAppBar(
-            snap: false,
-            pinned: true,
-            floating: false,
-            elevation: 0,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness:
-              Brightness.dark, // For Android (dark icons)
-              statusBarBrightness: Brightness.light, // For iOS (dark icons)
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                background: Image.network(
-                  widget.product.thumbnail!,
-                  fit: BoxFit.fitWidth,
-                ) //Images.network
-            ),
-            title: ValueListenableBuilder(
-              valueListenable: isPinned,
-              builder: (context, value, _) {
-                return Text(
-                  value ? widget.product.name ?? "-" : "",
-                  style: const TextStyle(color: Colors.black),
-                );
-              },
-            ),
-            expandedHeight: 500,
-            backgroundColor: Colors.white,
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.favorite_border,color: Colors.amber,),
-                tooltip: 'Setting Icon',
-                onPressed: () {},
-              ), //IconButton
-            ],
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back,color: Colors.amber,),
-              tooltip: 'Setting Icon',
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-
-          ),
-
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.product.name ?? "-"),
-
-                  SizedBox(height: 15,),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        extendBodyBehindAppBar: true,
+        body: CustomScrollView(
+          controller: _sliverScrollController,
+          slivers: [
+            SliverAppBar(
+              snap: false,
+              pinned: true,
+              floating: false,
+              elevation: 0,
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness:
+                    Brightness.dark, // For Android (dark icons)
+                statusBarBrightness: Brightness.light, // For iOS (dark icons)
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  background: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: [
-                          Icon(Icons.favorite),
-                          Icon(Icons.favorite),
-                          Icon(Icons.favorite),
-                          Icon(Icons.favorite),
-                          Icon(Icons.favorite),
-                          Text("(100)"),
-                        ],
+                      ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          selectedColor ?? Colors.transparent,
+                          BlendMode.modulate,
+                        ),
+                        child: Image.network(
+                          widget.product.thumbnail!,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-
-
-                      Text("\$ 8000"),
                     ],
-                  )
-                ],
+                  ),//Images.network
+                  ),
+              title: ValueListenableBuilder(
+                valueListenable: isPinned,
+                builder: (context, value, _) {
+                  return Text(
+                    value ? widget.product.name ?? "-" : "",
+                    style: const TextStyle(color: Colors.black),
+                  );
+                },
               ),
-            ),
-          )
-        ],
-      )
-    );
-
-
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.4,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(MyAssetsStrings.sports_wear),
+              expandedHeight: 500,
+              backgroundColor: Colors.white,
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(
+                    Icons.favorite_border,
+                    color: Colors.amber,
+                  ),
+                  tooltip: 'Setting Icon',
+                  onPressed: () {},
+                ), //IconButton
+              ],
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.amber,
                 ),
+                tooltip: 'Setting Icon',
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
             ),
-            Positioned(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                      color: Color(int.parse(MyColor.myColorOne)),
-                      borderRadius: BorderRadius.circular(70.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.4),
-                          // Set the shadow color
-                          spreadRadius: 2,
-                          // Set the spread radius of the shadow
-                          blurRadius: 5,
-                          // Set the blur radius of the shadow
-                          offset: Offset(0, 1), // Set the offset of the shadow
+            SliverToBoxAdapter(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.product.name ?? "-",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: MyAssetsStrings.productSans,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 2,  // Set the maximum number of lines
+                          overflow: TextOverflow.ellipsis,  // Handle overflow with ellipsis (...) or other options
+                        ),
+
+                        Text("\$ 8000",
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontFamily: MyAssetsStrings.productSans,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        RatingBar(
+                            minRating: 1,
+                            maxRating: 5,
+                            initialRating: 3,
+                            allowHalfRating: true,
+                            ratingWidget: RatingWidget(
+                                full: Icon(
+                                  Icons.star,
+                                  color: MyColor.rattingbar_icon_color,
+                                ),
+                                half: HalfFilledIcon(
+                                    icon: Icons.star,
+                                    size: 80,
+                                    color: MyColor.rattingbar_icon_color),
+                                empty: Icon(
+                                  Icons.star,
+                                  color: Colors.grey,
+                                )),
+                            onRatingUpdate: (val) {
+                              print(val);
+                            })
+                      ],
+                    ), SizedBox(height: 28),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(height: 20,
+                          width: 39,
+                          child: Text("Color", style: TextStyle(
+                              fontSize: 14,color:Colors.grey ,
+                              fontFamily: MyAssetsStrings
+                                  .productSansMedium)),
+                        ),
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            buildColorButton(MyColor.pic_changed_color_Normal_Pink),
+                           SizedBox(width: 12,),
+                            buildColorButton(Colors.green),
+                            SizedBox(width: 12,),
+                            buildColorButton(MyColor.pic_changed_color_DeepPink),
+                            SizedBox(width: 12,),
+                            Container(
+                            height: 45,
+                                width:45,decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 3,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3), // changes the position of the shadow
+                                  ),
+                                ],
+                                borderRadius:
+                                BorderRadius.circular(25.0),
+                              border: Border.all(color: Colors.black12,width: 6)
+                            ),child: buildColorButton(Colors.white)),
+                          ],
                         ),
                       ],
                     ),
-                    padding: EdgeInsets.all(5.0),
-                    child: Icon(Icons.arrow_back_ios_new, color: Colors.black),
-                  ),
+                    Accordion(
+                        contentBorderColor: Colors.transparent,
+                        headerBackgroundColor: Colors.transparent,
+                        rightIcon: Icon(Icons.keyboard_arrow_down,
+                            color: Colors.black, size: 26),
+                        children: [
+                          AccordionSection(
+                              isOpen: false,
+                              header: Text(
+                                "Describtion",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: MyAssetsStrings.productSans),
+                              ),
+                              content: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ...widget.product.description!.map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Text(
+                                        e,
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: MyAssetsStrings
+                                                .productsanslight),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          AccordionSection(
+                              isOpen: true,
+                              header: Text(
+                                "Review",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: MyAssetsStrings.productSans),
+                              ),
+                              content: Text("jhkjh")),
+                          AccordionSection(
+                              isOpen: true,
+                              header: Text(
+                                "Similar Product",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: MyAssetsStrings.productSans),
+                              ),
+                              content: Text("jhkjh")),
+                        ]),
+
+                  ],
                 ),
-                Container(
-                  height: 32,
-                  width: 32,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(70.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4), // Set the shadow color
-                        spreadRadius: 2, // Set the spread radius of the shadow
-                        blurRadius: 5, // Set the blur radius of the shadow
-                        offset: Offset(0, 1), // Set the offset of the shadow
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.all(5.0),
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ))
+              ),
+            ),
           ],
-        ),
-        // buildColorIcons(),
-        // buildAmountTag(),
-      ],
-    );
+        ));
   }
 
-  Widget buildIconBtn(Color myColor) => Container(
-          child: Stack(children: [
-        Positioned(
-          top: 12.5,
-          left: 12.5,
-          child: Icon(
-            Icons.check,size:20,
-            color:
-                primarycolor == myColor ? myColor : Colors.transparent,
+
+  Widget buildColorButton(Color color) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedColor = color;
+        });
+      },
+      child: Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes the position of the shadow
+            ),
+          ],
+          color: color,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: selectedColor == color ? Colors.white : Colors.transparent,
+            width: 6,
           ),
         ),
-            IconButton(onPressed: (){
-              setState(() {
-                primarycolor=myColor;
-              });
-            }, icon: Icon(Icons.circle,
-            color: myColor.withOpacity(0.65),size: 30,))
-      ]));
-  Widget buildAmountTag()=>Container(
-    child: Text("\$80.00"),
-  );
-  Widget buildColorIcons()=>Positioned(bottom: 35,
-    right: 10,
-    child: Row(
-      children: [
-        for(var i =0;i<3;i)buildIconBtn(myColor[i])
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }
+
+
