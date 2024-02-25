@@ -35,15 +35,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
         bottomNavigationBar: Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30)
-            )
-          ),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30))),
           child: BottomAppBar(
-
             color: Colors.black,
-
             child: Container(
               height: 70,
               child: Row(
@@ -117,55 +112,45 @@ class _DetailsScreenState extends State<DetailsScreen> {
               expandedHeight: 500,
               backgroundColor: Colors.white,
               actions: <Widget>[
-        Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 2,
-              offset: Offset(0,
-                  1), // changes the position of the shadow
-            ),
-          ],
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.favorite_border_outlined,
-                      color: Colors.black,
-                    ),
-                    tooltip: 'Setting Icon',
-                    onPressed: () {},
-                  ),
-                ), //IconButton
-              ],
-              leading: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 2,
-                        offset: Offset(0,
-                            1), // changes the position of the shadow
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: SizedBox(
+                    height: 45,
+                    width: 45,
+                    child: Card(
+                      shape: const CircleBorder(),
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: const Icon(
+                          Icons.favorite_border_outlined,
+                          color: Colors.black,
+                        ),
+                        tooltip: 'Setting Icon',
+                        onPressed: () {},
                       ),
-                    ],
-                    borderRadius: BorderRadius.circular(30.0),
-                   ),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Colors.black,
+                    ),
                   ),
-
-
-                  tooltip: 'Setting Icon',
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                )
+              ],
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: SizedBox(
+                  height: 45,
+                  width: 45,
+                  child: Card(
+                    shape: const CircleBorder(),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.black,
+                      ),
+                      tooltip: 'Setting Icon',
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -321,11 +306,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     fontSize: 16,
                                     fontFamily: MyAssetsStrings.productSans),
                               ),
-                              content: Text("This site's all product are fantastic."
-                              ,  style: TextStyle(
+                              content: Text(
+                                  "This site's all product are fantastic.",
+                                  style: TextStyle(
                                       fontSize: 12,
-                                      fontFamily: MyAssetsStrings
-                                          .productsanslight))),
+                                      fontFamily:
+                                          MyAssetsStrings.productsanslight))),
                           AccordionSection(
                               isOpen: false,
                               header: Text(
