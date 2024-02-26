@@ -20,6 +20,7 @@ class MyAssetsStrings {
   static String autumn_collection = "assets/sliderimages/autumncollection.png";
   static const String drawer = "assets/icons/drawerone.png";
   static String elegant_dress = "assets/sliderimages/elegant.png";
+  static String top_collecton= "assets/sliderimages/topcollection.jpg";
   // icons
   static const String search_all = "assets/icons/searchall.png";
   static const String bell_icon = "assets/icons/bell.png";

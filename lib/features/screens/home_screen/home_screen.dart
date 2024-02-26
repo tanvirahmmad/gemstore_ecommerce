@@ -6,10 +6,13 @@ import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
 import 'package:gemstore_ecommerce/common/server_urls.dart';
+import 'package:gemstore_ecommerce/features/screens/dress_catagory.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
+import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
 import 'package:gemstore_ecommerce/widgets/heading_showall.dart';
@@ -134,8 +137,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     shape: BoxShape.circle,
                                     color: MyColor.catagory_icon_color,
                                   ),
-                                  child: Image.asset(
-                                    MyAssetsStrings.catagoryImage[e.key],
+                                  child: InkWell(
+                                    onTap: () {
+                                      // Navigate to another page or perform any desired action
+                                      navigateToAnotherPage(e.key);
+                                    },
+                                    child: Image.asset(
+                                      MyAssetsStrings.catagoryImage[e.key],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -184,14 +193,13 @@ class _HomeScreenState extends State<HomeScreen> {
               //   return const SizedBox();
               // }),
               AutumnCollection(),
-              SizedBox(
-                height: 10,
-              ),
+
               HeadingAndShowAll(headingtext: MyStrings.feature_products),
               FeatureProductsSlider(),
               SizedBox(
-                height: 10,
+                height: 30,
               ),
+
               HangOutSlider(),
               SizedBox(height: 15),
               HeadingAndShowAll(headingtext: MyStrings.recommended),
@@ -204,10 +212,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               HeadingAndShowAll(headingtext: MyStrings.top_colection),
               SizedBox(
-                height: 7,
-              ),
+                height: 7,),
               TopCollectionSliderOne(),
-
               TopCollectionSliderTwo(),
               SizedBox(height: 7),
               TopCollectionSlider(),
@@ -219,5 +225,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void navigateToAnotherPage(int index) {
+    // You can use the index to determine which category image was tapped
+    // Navigate to another page or perform any desired action based on the tapped category
+    // For example:
+    switch (index) {
+      case 0:
+        // Navigate to a page for category 0
+        MyRoutes.navigateToDressDetailsScreen(context, Product());
+        break;
+      case 1:
+        // Navigate to a page for category 1
+        // MyRoutes.navigateToCategoryPage1(context);
+        break;
+      // Add cases for other categories as needed
+    }
   }
 }

@@ -6,12 +6,19 @@ class AutumnCollection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Image.asset(
-        MyAssetsStrings.autumn_collection,
-        height:168,
-        width: MediaQuery.of(context).size.width,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: InkWell(
+        highlightColor: Colors.transparent, // Set highlightColor to transparent
+        onTap: () {
+          // Handle the onTap action
+        },
+        child: Image.asset(
+          MyAssetsStrings.autumn_collection,
+          fit: BoxFit.contain,
+        ),
       ),
     );
+
   }
 }

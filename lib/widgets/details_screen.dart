@@ -160,8 +160,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     Icons.arrow_back_ios_new,
                     color: Colors.black,
                   ),
-
-
                   tooltip: 'Setting Icon',
                   onPressed: () {
                     Navigator.pop(context);
