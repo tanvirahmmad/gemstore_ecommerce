@@ -17,7 +17,9 @@ class ServerUrls {
 
   static String categoryUrl = "${_getFullUrl()}category";
   static String featuresProducts = "${_getFullUrl()}products/feature";
+  static String recommendedProducts = "${_getFullUrl()}products/recommended";
   static String tagUrls(String tag) {
     return "${_getFullUrl()}products/tags/$tag";
+
   }
 }

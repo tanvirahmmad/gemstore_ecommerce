@@ -10,6 +10,7 @@ import 'package:gemstore_ecommerce/features/screens/dress_catagory.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<CategoryBloc>().add(GetAllCategory());
     context.read<FeaturesProductsBloc>().add(GetFeaturesProducts());
     context.read<GetAllProductsBloc>().add(GetAllProducts());
+    context.read< RecommendedProductsBloc >().add(GetRecommendedProducts());
     super.initState();
   }
 
