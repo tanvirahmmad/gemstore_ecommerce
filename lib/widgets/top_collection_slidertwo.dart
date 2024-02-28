@@ -9,6 +9,10 @@ class TopCollectionSliderTwo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 7,right: 10,left: 10),
       child: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
         onTap: () {
           // Handle the onTap event if needed
         },

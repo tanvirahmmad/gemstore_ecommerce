@@ -7,9 +7,11 @@ class HangOutSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  SizedBox(width: MediaQuery.of(context).size.width*.99,
-      child: Image.asset(
-        MyAssetsStrings.hangout,
+      child: InkWell(
+        child: Image.asset(
+          MyAssetsStrings.hangout,
 fit: BoxFit.contain,
+        ),
       ),
     );
   }

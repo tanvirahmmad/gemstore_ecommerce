@@ -6,6 +6,7 @@ abstract class FeaturesProductsEvent extends Equatable {
 }
 
 class GetFeaturesProducts extends FeaturesProductsEvent {
+
   @override
   List<Object?> get props => [];
 }
