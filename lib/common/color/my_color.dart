@@ -16,4 +16,5 @@ class MyColor {
   static const Color rattingbar_icon_color  = Color(0xff508A7B);
   static const Color pic_changed_color_Normal_Pink  = Color(0xffE7C0A7);
   static const Color pic_changed_color_DeepPink  = Color(0xffEE6969);
+  static const Color box_shadow_color  = Color(0xffF9F9F9);
 }

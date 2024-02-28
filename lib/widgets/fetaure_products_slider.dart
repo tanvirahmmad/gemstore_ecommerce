@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
-import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
 

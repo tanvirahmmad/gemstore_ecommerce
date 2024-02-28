@@ -13,6 +13,7 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products
 import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
@@ -167,33 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
                 return const SizedBox();
               }),
-
-              // BlocBuilder<HomeBannerBloc, HomeState>(
-              //     builder: (context, state) {
-              //   if (state is BannerLoadingState) {
-              //     return const Center(
-              //         child: CircularProgressIndicator.adaptive());
-              //   } else if (state is BannerLoadedState) {
-              //     return SizedBox(
-              //       width: double.infinity,
-              //       height: 200,
-              //       child: ListView.builder(
-              //         scrollDirection: Axis.horizontal,
-              //         itemCount: 8,
-              //         itemBuilder: (context, index) {
-              //           return Padding(
-              //               padding: EdgeInsets.only(
-              //                   left: 10, right: 10, bottom: 10),
-              //               child: Text(
-              //                   state.products[index].title!.toString()));
-              //         },
-              //       ),
-              //     );
-              //   } else if (state is BannerLoadingErrorState) {
-              //     return Center(child: Text(state.ermessege));
-              //   }
-              //   return const SizedBox();
-              // }),
               AutumnCollection(),
 
               HeadingAndShowAll(headingtext: MyStrings.feature_products),
@@ -212,12 +186,12 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 15,
               ),
-              HeadingAndShowAll(headingtext: MyStrings.top_colection),
+              HeadingAndShowAll(headingtext: MyStrings.top_colection,),
               SizedBox(
                 height: 7,),
               TopCollectionSliderOne(),
               TopCollectionSliderTwo(),
-              SizedBox(height: 7),
+              SizedBox(height: 12),
               TopCollectionSlider(),
               SizedBox(
                 height: 15,

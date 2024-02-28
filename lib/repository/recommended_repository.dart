@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:gemstore_ecommerce/common/server_urls.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:http/http.dart' as https;
-
 class RecommendedProductsRepository {
   Future<ProductResponse> getRecommendedProducts() async {
     try {

@@ -3,7 +3,10 @@ import 'package:gemstore_ecommerce/features/screens/dress_catagory.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/intro_screen_view.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
+import 'package:gemstore_ecommerce/features/screens/show_all_products.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/models/product_types.dart';
+import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
 
 import '../widgets/details_screen.dart';
 
@@ -35,4 +38,10 @@ class MyRoutes {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => DressCAtagory(product: product,)));
   }
+
+  static void featureproductsnavigateToShowAllProductsScreen(BuildContext context,ProductTypes productTypes) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes: productTypes)));
+  }
+
 }

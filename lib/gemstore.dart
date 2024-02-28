@@ -5,6 +5,7 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/ca
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/show_all_products.dart';
 import 'package:gemstore_ecommerce/features/screens/splash_screen/SplashScreen.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/repository/category_repository.dart';
