@@ -6,6 +6,9 @@ abstract class FeaturesProductsEvent extends Equatable {
 }
 
 class GetFeaturesProducts extends FeaturesProductsEvent {
+  final int page;
+
+  const GetFeaturesProducts({this.page = 1});
 
   @override
   List<Object?> get props => [];

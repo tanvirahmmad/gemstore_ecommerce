@@ -4,7 +4,11 @@ import 'package:gemstore_ecommerce/models/product_response.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
-   ProductCard( {super.key, required this.product,});
+
+  ProductCard({
+    super.key,
+    required this.product,
+  });
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -13,57 +17,48 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: Container(
-                height:206,
-
-
-                decoration: BoxDecoration(
-
-                ),
-                child:
-                    ClipRRect(borderRadius: BorderRadius.circular(12),
-                      child: Image.network(widget.product.thumbnail!,
-fit: BoxFit.fill,
-                   // Adjust the height of the logo image
-                      ),
-                    ),),
-            ),
-SizedBox(height: 10,),
-        Container(
-     // Set the maximum width for the text
-        child: Text(widget.product.name!,
-        maxLines: 2, // Set the maximum number of lines
-        overflow: TextOverflow.ellipsis, // Handle overflow with ellipsis
-        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold),
-        ),),
-
-SizedBox(height: 8,),
-                  Text(
-                    "9088",
-                    style: TextStyle(fontSize: 13),
-                  ),
-                ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            height: 206,
+            decoration: BoxDecoration(),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                widget.product.thumbnail!,
+                fit: BoxFit.fill,
+                // Adjust the height of the logo image
               ),
-      ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          // Set the maximum width for the text
+          child: Text(
+            widget.product.name!,
+            maxLines: 2, // Set the maximum number of lines
+            overflow: TextOverflow.ellipsis, // Handle overflow with ellipsis
+            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text(
+          "9088",
+          style: TextStyle(fontSize: 13),
+        ),
+      ],
     );
+  }
+}
 
-  }}
-
-
-
-
-
-
-
-
-
-
-      /*
+/*
         Container(
 
           decoration: BoxDecoration(
@@ -86,4 +81,3 @@ SizedBox(height: 8,),
   }
 }
 */
-

@@ -8,15 +8,15 @@ part 'features_products_event.dart';
 part 'features_products_state.dart';
 
 class FeaturesProductsBloc extends Bloc<FeaturesProductsEvent, FeaturesProductsState> {
-int page=0;
+
   final FeaturesProductsRepository featuresProductsRepository;
 
   FeaturesProductsBloc(this.featuresProductsRepository) : super(FeaturesProductsInitial()) {
-    on<FeaturesProductsEvent>((event, emit) async {
+    on<GetFeaturesProducts>((event, emit) async {
       try {
         emit(FeaturesProductsLoading());
 
-        ProductResponse categoryResponse = await featuresProductsRepository.getFeaturesProducts();
+        ProductResponse categoryResponse = await featuresProductsRepository.getFeaturesProducts(page: event.page);
         emit(FeaturesProductsLoaded(categoryResponse));
 
       } catch (e) {

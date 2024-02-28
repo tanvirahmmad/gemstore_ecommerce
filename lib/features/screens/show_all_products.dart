@@ -25,15 +25,22 @@ class ShowAllProducts extends StatefulWidget {
 
 class _ShowAllProductsState extends State<ShowAllProducts> {
 
+  ValueNotifier<List<Product>> allProducts = ValueNotifier([]);
+  bool _isLastPage = false;
+  int page = 1;
+
+  bool isLoadMoreActive = false;
+
   @override
   void initState() {
-    if (widget.productTypes == ProductTypes.feature) {
-    } else if (widget.productTypes == ProductTypes.recommended) {
-    } else if (widget.productTypes == ProductTypes.catagory) {
-    } else if (widget.productTypes == ProductTypes.tags) {}
+    if (widget.productTypes == ProductTypes.feature) {} else
+    if (widget.productTypes == ProductTypes.recommended) {} else
+    if (widget.productTypes == ProductTypes.catagory) {} else
+    if (widget.productTypes == ProductTypes.tags) {}
     super.initState();
   }
-String appbarNames(){
+
+  String appbarNames() {
     if (widget.productTypes == ProductTypes.feature) {
       return "Features Products";
     } else if (widget.productTypes == ProductTypes.recommended) {
@@ -43,50 +50,89 @@ String appbarNames(){
     } else {
       return "tags";
     }
-}
+  }
+
+  void loadNextPage() {
+    if(isLoadMoreActive) return;
+
+    isLoadMoreActive = true;
+    page = page + 30;
+
+    if (widget.productTypes == ProductTypes.feature) {
+      context.read<FeaturesProductsBloc>().add(GetFeaturesProducts(page: page));
+    } else if (widget.productTypes == ProductTypes.recommended) {
+    } else if (widget.productTypes == ProductTypes.catagory) {
+    } else if (widget.productTypes == ProductTypes.tags) {}
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar:
-      AppBar(title: Text(
-        appbarNames()
-      ),),
-
-      body:
-      BlocBuilder<FeaturesProductsBloc, FeaturesProductsState>(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appbarNames()),
+      ),
+      body: BlocBuilder<FeaturesProductsBloc, FeaturesProductsState>(
           builder: (context, state) {
-        if (state is FeaturesProductsLoading) {
-          return const Center(
-            child: CupertinoActivityIndicator(),
-          );
-        }
-        if (state is FeaturesProductsLoaded) {
-          return GridView.builder(padding: EdgeInsets.all( 8),
+            if (state is FeaturesProductsLoading) {
 
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
+              if(page == 1) {
+                return const Center(
+                  child: CupertinoActivityIndicator(),
+                );
+              } else {
+                return _showAllProducts();
+              }
+            }
+            if (state is FeaturesProductsLoaded) {
 
-              mainAxisExtent: 290
+              isLoadMoreActive = false;
 
-            ),
-            itemCount: state.productResponse.products!.product!.length,
-            itemBuilder: (context, index) {
-              return ProductCard(
-              product:  state.productResponse.products!.product![index],
-              );
-            },
-          );
-        }
-        if (state is FeaturesProductsError) {
-          return Center(child: Text(state.error));
-        }
+              allProducts.value.addAll(state.productResponse.products?.product ?? []);
 
-        return const SizedBox();
-      }),
+              if(state.productResponse.products!.currentPage! >= state.productResponse.products!.lastPage!) {
+                _isLastPage = true;
+              }
+
+              return _showAllProducts();
+            }
+            if (state is FeaturesProductsError) {
+              return Center(child: Text(state.error));
+            }
+
+            return const SizedBox();
+          }),
     );
   }
 
+  Widget _showAllProducts() {
+    return ValueListenableBuilder(
+      valueListenable: allProducts,
+      builder: (context, value, _) {
+        return GridView.builder(
+          padding: const EdgeInsets.all(8),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            mainAxisExtent: 290,),
+          itemCount: allProducts.value.length + 1,
+          itemBuilder: (context, index) {
+            if (index < allProducts.value.length) {
+              return ProductCard(
+                product: allProducts.value[index],
+              );
+            }
+            else {
+              if(!_isLastPage) {
+                loadNextPage();
+                return const CircularProgressIndicator.adaptive();
+              }
 
+            }
+          },
+        );
+      },
+    );
   }
-
+}

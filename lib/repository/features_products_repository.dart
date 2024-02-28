@@ -7,10 +7,13 @@ import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:http/http.dart' as https;
 
 class FeaturesProductsRepository {
-  Future<ProductResponse> getFeaturesProducts () async {
+  Future<ProductResponse> getFeaturesProducts ({int page = 1}) async {
 
     try {
-      var response = await https.get(Uri.parse(ServerUrls.featuresProducts));
+      String url = "${ServerUrls.featuresProducts}?page=$page";
+      print(url);
+
+      var response = await https.get(Uri.parse(url));
 
       print(response.body);
 
