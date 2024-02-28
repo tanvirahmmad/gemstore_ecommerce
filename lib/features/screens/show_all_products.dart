@@ -24,6 +24,7 @@ class ShowAllProducts extends StatefulWidget {
 }
 
 class _ShowAllProductsState extends State<ShowAllProducts> {
+
   @override
   void initState() {
     if (widget.productTypes == ProductTypes.feature) {

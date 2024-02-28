@@ -8,7 +8,7 @@ part 'features_products_event.dart';
 part 'features_products_state.dart';
 
 class FeaturesProductsBloc extends Bloc<FeaturesProductsEvent, FeaturesProductsState> {
-
+int page=0;
   final FeaturesProductsRepository featuresProductsRepository;
 
   FeaturesProductsBloc(this.featuresProductsRepository) : super(FeaturesProductsInitial()) {
