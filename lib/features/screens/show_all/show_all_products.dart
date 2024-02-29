@@ -8,6 +8,8 @@ import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/product_card.dart';
 
+import '../recommended_bloc/recommended_products_bloc.dart';
+
 class ShowAllProducts extends StatefulWidget {
   final ProductTypes productTypes;
 
@@ -64,6 +66,7 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
     if (widget.productTypes == ProductTypes.feature) {
       context.read<FeaturesProductsBloc>().add(GetFeaturesProducts(page: page));
     } else if (widget.productTypes == ProductTypes.recommended) {
+      context.read<RecommendedProductsBloc>().add(GetRecommendedProducts(page: page));
     } else if (widget.productTypes == ProductTypes.catagory) {
     } else if (widget.productTypes == ProductTypes.tags) {}
   }
@@ -74,8 +77,44 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
       appBar: AppBar(
         title: Text(appbarNames()),
       ),
-      body: _featuresProducts(),
+      body: widget.productTypes == ProductTypes.feature
+          ?  _featuresProducts()
+          : widget.productTypes == ProductTypes.recommended
+            ? _recommendedProducts()
+            : const Text("Invalid Category")
+      ,
     );
+  }
+
+  Widget _recommendedProducts() {
+    return BlocBuilder<RecommendedProductsBloc, RecommendedProductsState>(
+        builder: (context, state) {
+          if (state is RecommendedProductsLoading) {
+            if (page == 1) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            } else {
+              return _showAllProducts();
+            }
+          }
+          if (state is RecommendedProductsLoaded) {
+            isLoadMoreActive = false;
+
+            allProducts.value.addAll(state.recommendedProductResponse.products?.product ?? []);
+
+            if (state.recommendedProductResponse.products!.currentPage! >= state.recommendedProductResponse.products!.lastPage!) {
+              _isLastPage = true;
+            }
+
+            return _showAllProducts();
+          }
+          if (state is RecommendedProductsError) {
+            return Center(child: Text(state.error));
+          }
+
+          return const SizedBox();
+        });
   }
 
   Widget _featuresProducts() {
