@@ -2,13 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:gemstore_ecommerce/common/server_urls.dart';
+import 'package:gemstore_ecommerce/models/enum.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:http/http.dart' as https;
 
 class GetAllProductsRepository {
-  Future<ProductResponse> getFeaturesProducts(String tag) async {
+  Future<ProductResponse> getFeaturesProducts({required ProductTags productTags,  int page = 1} ) async {
     try {
-      var response = await https.get(Uri.parse(ServerUrls.tagUrls(tag)));
+
+      String url = "${ServerUrls.tagUrls(productTags.tags)}?page=$page";
+      print(url);
+
+      var response = await https.get(Uri.parse(url));
 
       print(response.body);
 

@@ -5,6 +5,7 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart
 import 'package:gemstore_ecommerce/features/screens/my_cart.dart';
 import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
 import 'package:gemstore_ecommerce/features/screens/show_all/show_all_products.dart';
+import 'package:gemstore_ecommerce/models/enum.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
@@ -40,9 +41,13 @@ class MyRoutes {
         MaterialPageRoute(builder: (context) => DressCAtagory(product: product,)));
   }
 
-  static void featureproductsnavigateToShowAllProductsScreen(BuildContext context,ProductTypes productTypes) {
+  static void featureproductsnavigateToShowAllProductsScreen(
+    BuildContext context,
+    ProductTypes productTypes, {
+    ProductTags? productTags,
+  }) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes: productTypes)));
+        MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes: productTypes, productTags: productTags,)));
   }
 
   static void navigateToDetailsScreen(BuildContext context, Product product) {

@@ -10,6 +10,7 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/features_product
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
+import 'package:gemstore_ecommerce/models/enum.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     context.read<CategoryBloc>().add(GetAllCategory());
     context.read<FeaturesProductsBloc>().add(GetFeaturesProducts());
-    context.read<GetAllProductsBloc>().add(GetAllProducts());
+    // context.read<GetAllProductsBloc>().add(GetAllProducts());
     context.read< RecommendedProductsBloc >().add(GetRecommendedProducts());
     super.initState();
   }
@@ -209,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (index) {
       case 0:
         // Navigate to a page for category 0
-        MyRoutes.featureproductsnavigateToShowAllProductsScreen(context, ProductTypes.catagory);
+        MyRoutes.featureproductsnavigateToShowAllProductsScreen(context, ProductTypes.catagory, productTags: ProductTags.coords);
         break;
       case 1:
         // Navigate to a page for category 1

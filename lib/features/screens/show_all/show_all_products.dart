@@ -8,6 +8,7 @@ import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/product_card.dart';
 
+import '../home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import '../recommended_bloc/recommended_products_bloc.dart';
 
 class ShowAllProducts extends StatefulWidget {
@@ -37,6 +38,10 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
 
   @override
   void initState() {
+
+    print(widget.productTags);
+    print(widget.productTypes);
+
     if (widget.productTypes == ProductTypes.feature) {
     } else if (widget.productTypes == ProductTypes.recommended) {
     } else if (widget.productTypes == ProductTypes.catagory) {
@@ -51,9 +56,12 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
       return "Recommended Products";
     } else if (widget.productTypes == ProductTypes.catagory) {
       return "Catagory Products";
-    } else {
-      return "tags";
+    } else if (widget.productTypes == ProductTypes.tags) {
+      context.read<GetAllProductsBloc>().add(GetAllProducts(producTags: widget.productTags!, page: page));
+      return widget.productTags!.tags;
     }
+
+    return "All Products";
   }
 
   void loadNextPage() {
@@ -68,7 +76,9 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
     } else if (widget.productTypes == ProductTypes.recommended) {
       context.read<RecommendedProductsBloc>().add(GetRecommendedProducts(page: page));
     } else if (widget.productTypes == ProductTypes.catagory) {
-    } else if (widget.productTypes == ProductTypes.tags) {}
+    } else if (widget.productTypes == ProductTypes.tags) {
+      context.read<GetAllProductsBloc>().add(GetAllProducts(producTags: widget.productTags!, page: page));
+    }
   }
 
   @override
@@ -81,9 +91,42 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
           ?  _featuresProducts()
           : widget.productTypes == ProductTypes.recommended
             ? _recommendedProducts()
-            : const Text("Invalid Category")
+            : widget.productTypes == ProductTypes.tags
+              ? _tagProducts()
+              : const Text("Invalid Category")
       ,
     );
+  }
+
+  Widget _tagProducts() {
+    return BlocBuilder<GetAllProductsBloc, GetAllProductsState>(
+        builder: (context, state) {
+          if (state is GetAllProductsLoading) {
+            if (page == 1) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            } else {
+              return _showAllProducts();
+            }
+          }
+          if (state is GetAllProductsLoaded) {
+            isLoadMoreActive = false;
+
+            allProducts.value.addAll(state.getallproductResponse.products?.product ?? []);
+
+            if (state.getallproductResponse.products!.currentPage! >= state.getallproductResponse.products!.lastPage!) {
+              _isLastPage = true;
+            }
+
+            return _showAllProducts();
+          }
+          if (state is GetAllProductsError) {
+            return Center(child: Text(state.error));
+          }
+
+          return const SizedBox();
+        });
   }
 
   Widget _recommendedProducts() {
