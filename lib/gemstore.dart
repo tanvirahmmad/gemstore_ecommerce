@@ -6,6 +6,7 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart
 import 'package:gemstore_ecommerce/features/screens/my_cart.dart';
 import 'package:gemstore_ecommerce/features/screens/ount_details/sign_up_page.dart';
 import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/splash_screen/SplashScreen.dart';
 import 'package:gemstore_ecommerce/repository/category_repository.dart';
 import 'package:gemstore_ecommerce/repository/get_tag_products.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
@@ -112,7 +113,7 @@ class Gemstore extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: false,
           ),
-          home: HomeScreen(),
+          home: SplashScreen(),
         ),
       ),
     );

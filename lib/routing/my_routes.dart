@@ -18,7 +18,7 @@ class MyRoutes {
   static void navigateToHomePage(BuildContext context) {
     Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()));
+        MaterialPageRoute(builder: (context) => const NavigationBarSet()));
   }
 
   static void navigateOnBoardingPage(BuildContext context) {
