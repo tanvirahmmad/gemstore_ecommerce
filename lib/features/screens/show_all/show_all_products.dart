@@ -44,7 +44,7 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
 
   String appbarNames() {
     if (widget.productTypes == ProductTypes.feature) {
-      return "Related Products";
+      return "Features Products";
     } else if (widget.productTypes == ProductTypes.recommended) {
       return "Recommended Products";
     } else if (widget.productTypes == ProductTypes.catagory) {
@@ -59,6 +59,7 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
 
     isLoadMoreActive = true;
 
+    page++;
 
     if (widget.productTypes == ProductTypes.feature) {
       context.read<FeaturesProductsBloc>().add(GetFeaturesProducts(page: page));
@@ -73,37 +74,39 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
       appBar: AppBar(
         title: Text(appbarNames()),
       ),
-      body: BlocBuilder<FeaturesProductsBloc, FeaturesProductsState>(
-          builder: (context, state) {
-        if (state is FeaturesProductsLoading) {
-          if (page == 1) {
-            return const Center(
-              child: CupertinoActivityIndicator(),
-            );
-          } else {
+      body: _featuresProducts(),
+    );
+  }
+
+  Widget _featuresProducts() {
+    return BlocBuilder<FeaturesProductsBloc, FeaturesProductsState>(
+        builder: (context, state) {
+          if (state is FeaturesProductsLoading) {
+            if (page == 1) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            } else {
+              return _showAllProducts();
+            }
+          }
+          if (state is FeaturesProductsLoaded) {
+            isLoadMoreActive = false;
+
+            allProducts.value.addAll(state.productResponse.products?.product ?? []);
+
+            if (state.productResponse.products!.currentPage! >= state.productResponse.products!.lastPage!) {
+              _isLastPage = true;
+            }
+
             return _showAllProducts();
           }
-        }
-        if (state is FeaturesProductsLoaded) {
-          isLoadMoreActive = false;
-
-          allProducts.value
-              .addAll(state.productResponse.products?.product ?? []);
-
-          if (state.productResponse.products!.currentPage! >=
-              state.productResponse.products!.lastPage!) {
-            _isLastPage = true;
+          if (state is FeaturesProductsError) {
+            return Center(child: Text(state.error));
           }
 
-          return _showAllProducts();
-        }
-        if (state is FeaturesProductsError) {
-          return Center(child: Text(state.error));
-        }
-
-        return const SizedBox();
-      }),
-    );
+          return const SizedBox();
+        });
   }
 
   Widget _showAllProducts() {
@@ -135,7 +138,9 @@ MyRoutes.navigateToDetailsScreen(context, (allProducts.value[index]));
             } else {
               if (!_isLastPage) {
                 loadNextPage();
-                return const CircularProgressIndicator.adaptive();
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
             }
           },
