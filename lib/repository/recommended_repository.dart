@@ -4,11 +4,13 @@ import 'package:gemstore_ecommerce/common/server_urls.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:http/http.dart' as https;
 class RecommendedProductsRepository {
-  Future<ProductResponse> getRecommendedProducts() async {
+  Future<ProductResponse> getRecommendedProducts({int page=1}) async {
     try {
-      var response = await https.get(Uri.parse(ServerUrls.recommendedProducts));
+      String url = "${ServerUrls.recommendedProducts}?page=$page";
 
-      print(response.body);
+
+      var response = await https.get(Uri.parse(url));
+
 
       if (response.statusCode == 200) {
         Map<String, dynamic> responseAsMap = jsonDecode(response.body);

@@ -5,10 +5,12 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/features_product
 import 'package:gemstore_ecommerce/models/enum.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/models/product_types.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/product_card.dart';
 
 class ShowAllProducts extends StatefulWidget {
   final ProductTypes productTypes;
+
   int? catagoryId;
   final ProductTags? productTags;
 
@@ -17,6 +19,7 @@ class ShowAllProducts extends StatefulWidget {
     required this.productTypes,
     this.catagoryId,
     this.productTags,
+
   }) : super(key: key);
 
   @override
@@ -24,7 +27,6 @@ class ShowAllProducts extends StatefulWidget {
 }
 
 class _ShowAllProductsState extends State<ShowAllProducts> {
-
   ValueNotifier<List<Product>> allProducts = ValueNotifier([]);
   bool _isLastPage = false;
   int page = 1;
@@ -33,16 +35,16 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
 
   @override
   void initState() {
-    if (widget.productTypes == ProductTypes.feature) {} else
-    if (widget.productTypes == ProductTypes.recommended) {} else
-    if (widget.productTypes == ProductTypes.catagory) {} else
-    if (widget.productTypes == ProductTypes.tags) {}
+    if (widget.productTypes == ProductTypes.feature) {
+    } else if (widget.productTypes == ProductTypes.recommended) {
+    } else if (widget.productTypes == ProductTypes.catagory) {
+    } else if (widget.productTypes == ProductTypes.tags) {}
     super.initState();
   }
 
   String appbarNames() {
     if (widget.productTypes == ProductTypes.feature) {
-      return "Features Products";
+      return "Related Products";
     } else if (widget.productTypes == ProductTypes.recommended) {
       return "Recommended Products";
     } else if (widget.productTypes == ProductTypes.catagory) {
@@ -53,17 +55,16 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
   }
 
   void loadNextPage() {
-    if(isLoadMoreActive) return;
+    if (isLoadMoreActive) return;
 
     isLoadMoreActive = true;
-    page = page + 30;
+
 
     if (widget.productTypes == ProductTypes.feature) {
       context.read<FeaturesProductsBloc>().add(GetFeaturesProducts(page: page));
     } else if (widget.productTypes == ProductTypes.recommended) {
     } else if (widget.productTypes == ProductTypes.catagory) {
     } else if (widget.productTypes == ProductTypes.tags) {}
-
   }
 
   @override
@@ -74,34 +75,34 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
       ),
       body: BlocBuilder<FeaturesProductsBloc, FeaturesProductsState>(
           builder: (context, state) {
-            if (state is FeaturesProductsLoading) {
+        if (state is FeaturesProductsLoading) {
+          if (page == 1) {
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+          } else {
+            return _showAllProducts();
+          }
+        }
+        if (state is FeaturesProductsLoaded) {
+          isLoadMoreActive = false;
 
-              if(page == 1) {
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              } else {
-                return _showAllProducts();
-              }
-            }
-            if (state is FeaturesProductsLoaded) {
+          allProducts.value
+              .addAll(state.productResponse.products?.product ?? []);
 
-              isLoadMoreActive = false;
+          if (state.productResponse.products!.currentPage! >=
+              state.productResponse.products!.lastPage!) {
+            _isLastPage = true;
+          }
 
-              allProducts.value.addAll(state.productResponse.products?.product ?? []);
+          return _showAllProducts();
+        }
+        if (state is FeaturesProductsError) {
+          return Center(child: Text(state.error));
+        }
 
-              if(state.productResponse.products!.currentPage! >= state.productResponse.products!.lastPage!) {
-                _isLastPage = true;
-              }
-
-              return _showAllProducts();
-            }
-            if (state is FeaturesProductsError) {
-              return Center(child: Text(state.error));
-            }
-
-            return const SizedBox();
-          }),
+        return const SizedBox();
+      }),
     );
   }
 
@@ -115,20 +116,27 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
             crossAxisCount: 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-            mainAxisExtent: 290,),
+            mainAxisExtent: 290,
+          ),
           itemCount: allProducts.value.length + 1,
           itemBuilder: (context, index) {
             if (index < allProducts.value.length) {
-              return ProductCard(
-                product: allProducts.value[index],
+              return InkWell(
+                onTap: ()
+                {
+MyRoutes.navigateToDetailsScreen(context, (allProducts.value[index]));
+
+
+                },
+                child: ProductCard(
+                  product: allProducts.value[index],
+                ),
               );
-            }
-            else {
-              if(!_isLastPage) {
+            } else {
+              if (!_isLastPage) {
                 loadNextPage();
                 return const CircularProgressIndicator.adaptive();
               }
-
             }
           },
         );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
-import 'package:gemstore_ecommerce/features/screens/show_all_products.dart';
+import 'package:gemstore_ecommerce/features/screens/show_all/show_all_products.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
@@ -41,7 +41,7 @@ class HeadingAndShowAll extends StatelessWidget {
             if(headingtext==MyStrings.feature_products) {
 MyRoutes.featureproductsnavigateToShowAllProductsScreen(context, ProductTypes.feature);
             }else if(headingtext==MyStrings.recommended){
-
+              MyRoutes.featureproductsnavigateToShowAllProductsScreen(context, ProductTypes.recommended);
 
           //   MyRoutes.navigateToRecommendedShowAllProductsScreen(context, ProductResponse:recommendedProductResponse, product);
             }

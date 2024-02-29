@@ -5,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/common/my_strings.dart';
-import 'package:gemstore_ecommerce/common/server_urls.dart';
-import 'package:gemstore_ecommerce/features/screens/dress_catagory.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/category_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
 import 'package:gemstore_ecommerce/models/category_response.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/autumn_collection.dart';
@@ -210,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (index) {
       case 0:
         // Navigate to a page for category 0
-        MyRoutes.navigateToDressDetailsScreen(context, Product());
+        MyRoutes.featureproductsnavigateToShowAllProductsScreen(context, ProductTypes.catagory);
         break;
       case 1:
         // Navigate to a page for category 1

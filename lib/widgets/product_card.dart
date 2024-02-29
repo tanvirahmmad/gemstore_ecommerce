@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;

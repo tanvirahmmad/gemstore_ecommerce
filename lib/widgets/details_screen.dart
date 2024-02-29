@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
 import 'package:gemstore_ecommerce/widgets/half_filled_icon.dart';
 
@@ -59,7 +60,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Colors.black),
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       child: Text("Add To Cart",
                           style: TextStyle(
                               fontSize: 18,
@@ -93,7 +96,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     children: [
                       ColorFiltered(
                         colorFilter: ColorFilter.mode(
-                          selectedColor ?? Colors.transparent,
+                          selectedColor ?? Colors.white,
                           BlendMode.modulate,
                         ),
                         child: Image.network(
@@ -259,23 +262,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             SizedBox(
                               width: 12,
                             ),
-                            Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 3,
-                                        blurRadius: 7,
-                                        offset: Offset(0,
-                                            3), // changes the position of the shadow
-                                      ),
-                                    ],
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    border: Border.all(
-                                        color: Colors.black12, width: 6)),
-                                child: buildColorButton(Colors.white)),
+
                           ],
                         ),
                       ],

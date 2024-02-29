@@ -12,12 +12,13 @@ part 'recommended_products_state.dart';
 class RecommendedProductsBloc extends Bloc<RecommendedProductsEvent, RecommendedProductsState> {
   final RecommendedProductsRepository recommendedProductsRepository;
   RecommendedProductsBloc(this.recommendedProductsRepository) : super(RecommendedProductsInitial()) {
-    on<RecommendedProductsEvent>((event, emit) async{
+    on<GetRecommendedProducts>((event, emit) async{
       try {
         emit(RecommendedProductsLoading());
 
 
-          ProductResponse recommendedResponse = await recommendedProductsRepository.getRecommendedProducts();
+          ProductResponse recommendedResponse = await
+          recommendedProductsRepository.getRecommendedProducts(page:event.page);
           emit(RecommendedProductsLoaded(recommendedResponse));
 
         } catch (e) {

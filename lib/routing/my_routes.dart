@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/features/screens/dress_catagory.dart';
 import 'package:gemstore_ecommerce/features/screens/entry_screens/intro_screen_view.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
+import 'package:gemstore_ecommerce/features/screens/my_cart.dart';
 import 'package:gemstore_ecommerce/features/screens/navigation_bar/navigation_bar.dart';
-import 'package:gemstore_ecommerce/features/screens/show_all_products.dart';
+import 'package:gemstore_ecommerce/features/screens/show_all/show_all_products.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/models/product_types.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
@@ -44,4 +45,9 @@ class MyRoutes {
         MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes: productTypes)));
   }
 
-}
+  static void navigateToDetailsScreen(BuildContext context, Product product) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DetailsScreen(product)));
+  }
+
+  }

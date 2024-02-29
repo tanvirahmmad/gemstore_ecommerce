@@ -16,7 +16,8 @@ class FeaturesProductsBloc extends Bloc<FeaturesProductsEvent, FeaturesProductsS
       try {
         emit(FeaturesProductsLoading());
 
-        ProductResponse categoryResponse = await featuresProductsRepository.getFeaturesProducts(page: event.page);
+        ProductResponse categoryResponse = await
+        featuresProductsRepository.getFeaturesProducts(page: event.page);
         emit(FeaturesProductsLoaded(categoryResponse));
 
       } catch (e) {

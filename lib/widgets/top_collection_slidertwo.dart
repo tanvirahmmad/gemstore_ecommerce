@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
+import 'package:gemstore_ecommerce/models/product_types.dart';
+import 'package:gemstore_ecommerce/routing/my_routes.dart';
 
 class TopCollectionSliderTwo extends StatelessWidget {
   const TopCollectionSliderTwo({super.key});
@@ -14,6 +16,8 @@ class TopCollectionSliderTwo extends StatelessWidget {
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onTap: () {
+          MyRoutes.featureproductsnavigateToShowAllProductsScreen(context, ProductTypes.feature);
+
           // Handle the onTap event if needed
         },
         child: ClipRRect(
