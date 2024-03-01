@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gemstore_ecommerce/data/local_storage/product_storage/product_storage_manager.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/products_by_catagory/products_by_catagory_bloc.dart';
 import 'package:gemstore_ecommerce/models/catagory_products_id.dart';
@@ -14,6 +15,8 @@ import '../home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import '../recommended_bloc/recommended_products_bloc.dart';
 
 class ShowAllProducts extends StatefulWidget {
+
+
   final ProductTypes productTypes;
 
   final CatagoryName? catagoryName;
@@ -32,6 +35,8 @@ class ShowAllProducts extends StatefulWidget {
 }
 
 class _ShowAllProductsState extends State<ShowAllProducts> {
+
+
   ValueNotifier<List<Product>> allProducts = ValueNotifier([]);
   bool _isLastPage = false;
   int page = 1;

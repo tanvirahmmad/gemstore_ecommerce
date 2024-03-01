@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gemstore_ecommerce/common/color/my_color.dart';
 import 'package:gemstore_ecommerce/common/my_assets_strings/my_assets_strings.dart';
+import 'package:gemstore_ecommerce/data/local_storage/product_storage/product_storage_manager.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/routing/my_routes.dart';
 import 'package:gemstore_ecommerce/widgets/fetaure_products_slider.dart';
@@ -19,6 +20,7 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  late final ProductStorageManager productStorageManager;
   final ScrollController _sliverScrollController = ScrollController();
   final ValueNotifier<bool> isPinned = ValueNotifier<bool>(false);
 
@@ -27,6 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     _sliverScrollController.addListener(() {
       isPinned.value = _sliverScrollController.offset > 400;
     });
+    productStorageManager = ProductStorageManager();
   }
 
   Color? selectedColor;
@@ -36,15 +39,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
         bottomNavigationBar: Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30)
-            )
-          ),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30))),
           child: BottomAppBar(
-
             color: Colors.black,
-
             child: Container(
               height: 70,
               child: Row(
@@ -60,9 +58,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Colors.black),
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       child: Text("Add To Cart",
                           style: TextStyle(
                               fontSize: 18,
@@ -120,44 +116,54 @@ class _DetailsScreenState extends State<DetailsScreen> {
               expandedHeight: 500,
               backgroundColor: Colors.white,
               actions: <Widget>[
-        Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 2,
-              offset: Offset(0,
-                  1), // changes the position of the shadow
-            ),
-          ],
-          borderRadius: BorderRadius.circular(30.0),
-        ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 2,
+                        offset:
+                            Offset(0, 1), // changes the position of the shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                   child: IconButton(
-                    icon: Icon(
-                      Icons.favorite_border_outlined,
-                      color: Colors.black,
+                    icon: ValueListenableBuilder(
+                      valueListenable: productStorageManager.favoriteProducts,
+                      builder: (context, favoriteProducts, child) {
+                        bool isfavourite = favoriteProducts.any(
+                            (Product product) =>
+                                product.id == widget.product.id);
+                        return Icon(
+                          Icons.favorite_border_outlined,
+                          color: isfavourite ? Colors.red : Colors.black,
+                        );
+                      },
                     ),
                     tooltip: 'Setting Icon',
-                    onPressed: () {},
+                    onPressed: () {
+                      productStorageManager.addToFavorite(widget.product);
+                    },
                   ),
                 ), //IconButton
               ],
               leading: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 2,
-                        offset: Offset(0,
-                            1), // changes the position of the shadow
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(30.0),
-                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 2,
+                      offset:
+                          Offset(0, 1), // changes the position of the shadow
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
                 child: IconButton(
                   icon: const Icon(
                     Icons.arrow_back_ios_new,
@@ -262,7 +268,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             SizedBox(
                               width: 12,
                             ),
-
                           ],
                         ),
                       ],
@@ -306,11 +311,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     fontSize: 16,
                                     fontFamily: MyAssetsStrings.productSans),
                               ),
-                              content: Text("This site's all product are fantastic."
-                              ,  style: TextStyle(
+                              content: Text(
+                                  "This site's all product are fantastic.",
+                                  style: TextStyle(
                                       fontSize: 12,
-                                      fontFamily: MyAssetsStrings
-                                          .productsanslight))),
+                                      fontFamily:
+                                          MyAssetsStrings.productsanslight))),
                           AccordionSection(
                               isOpen: false,
                               header: Text(
