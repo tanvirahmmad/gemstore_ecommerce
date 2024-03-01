@@ -22,7 +22,9 @@ class GetProductsByCatagoryReppository {
         Map<String, dynamic> responseAsMap = jsonDecode(response.body);
 
         if (responseAsMap["status"] == true) {
+
           return ProductResponse.fromJson(responseAsMap);
+
         } else {
           throw Exception("Failed to get data");
         }

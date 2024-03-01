@@ -208,14 +208,17 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (index) {
       case 0:
         // Navigate to a page for category 0
-       MyRoutes.navigateToDressCatagory(context, CatagoryName.dress) ;
+       MyRoutes.navigateToCatagoryAllProducts(context, CatagoryName.dress);
         break;
       case 1:
-        MyRoutes.navigateToCatagorytwo(context, CatagoryName.beauty);
-        // Navigate to a page for category 1
-        // MyRoutes.navigateToCategoryPage1(context);
+        MyRoutes.navigateToCatagoryAllProducts(context, CatagoryName.shoes);
         break;
-      // Add cases for other categories as needed
+      case 2:
+        MyRoutes.navigateToCatagoryAllProducts(context, CatagoryName.accessories);
+        break;
+      case 3:
+        MyRoutes.navigateToCatagoryAllProducts(context, CatagoryName.beauty);
+        break;
     }
   }
 }

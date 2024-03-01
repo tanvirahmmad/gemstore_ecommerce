@@ -58,9 +58,21 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
     } else if (widget.productTypes == ProductTypes.recommended) {
       return "Recommended Products";
     } else if (widget.productTypes == ProductTypes.catagory) {
-      context.read<ProductsByCatagoryBloc>().add(GetProductsByCategory (catagoryName: widget.catagoryName!, page: page));
-      return "Catagory Products";
-    } else if (widget.productTypes == ProductTypes.tags) {
+      context.read<ProductsByCatagoryBloc>().add(GetProductsByCategory(
+          catagoryName: widget.catagoryName!, page: page));
+      if (CatagoryName.dress == widget.catagoryName) {
+        return "Dress Products";
+      }
+      if (CatagoryName.shoes == widget.catagoryName) {
+        return "Shoes Products";
+      }
+      if (CatagoryName.accessories == widget.catagoryName) {
+        return "Accessories Products";
+      }
+      if (CatagoryName.beauty == widget.catagoryName) {
+        return "Beauty Products";
+      }
+    }else if (widget.productTypes == ProductTypes.tags) {
       context.read<GetAllProductsBloc>().add(GetAllProducts(producTags: widget.productTags!, page: page));
       return widget.productTags!.tags;
     }

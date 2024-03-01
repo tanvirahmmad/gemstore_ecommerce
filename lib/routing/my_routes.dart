@@ -55,13 +55,10 @@ class MyRoutes {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => DetailsScreen(product)));
   }
-  static void navigateToDressCatagory(BuildContext context,CatagoryName catagoryName) {
+  static void navigateToCatagoryAllProducts(BuildContext context,CatagoryName catagoryName) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes:ProductTypes.catagory, catagoryName: CatagoryName.dress ,)));
+        MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes:ProductTypes.catagory, catagoryName: catagoryName,)));
   }
-  static void navigateToCatagorytwo(BuildContext context,CatagoryName catagoryName) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ShowAllProducts(productTypes:ProductTypes.catagory, catagoryName: CatagoryName.beauty ,)));
-  }
+
 
   }
