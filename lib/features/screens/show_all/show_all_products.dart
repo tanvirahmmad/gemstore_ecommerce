@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/features_products/features_products_bloc.dart';
+import 'package:gemstore_ecommerce/features/screens/products_by_catagory/products_by_catagory_bloc.dart';
+import 'package:gemstore_ecommerce/models/catagory_products_id.dart';
 import 'package:gemstore_ecommerce/models/enum.dart';
 import 'package:gemstore_ecommerce/models/product_response.dart';
 import 'package:gemstore_ecommerce/models/product_types.dart';
@@ -14,13 +16,13 @@ import '../recommended_bloc/recommended_products_bloc.dart';
 class ShowAllProducts extends StatefulWidget {
   final ProductTypes productTypes;
 
-  int? catagoryId;
+  final CatagoryName? catagoryName;
   final ProductTags? productTags;
 
   ShowAllProducts({
     Key? key,
     required this.productTypes,
-    this.catagoryId,
+    this.catagoryName,
     this.productTags,
 
   }) : super(key: key);
@@ -46,6 +48,7 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
     } else if (widget.productTypes == ProductTypes.recommended) {
     } else if (widget.productTypes == ProductTypes.catagory) {
     } else if (widget.productTypes == ProductTypes.tags) {}
+
     super.initState();
   }
 
@@ -55,6 +58,7 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
     } else if (widget.productTypes == ProductTypes.recommended) {
       return "Recommended Products";
     } else if (widget.productTypes == ProductTypes.catagory) {
+      context.read<ProductsByCatagoryBloc>().add(GetProductsByCategory (catagoryName: widget.catagoryName!, page: page));
       return "Catagory Products";
     } else if (widget.productTypes == ProductTypes.tags) {
       context.read<GetAllProductsBloc>().add(GetAllProducts(producTags: widget.productTags!, page: page));
@@ -76,6 +80,7 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
     } else if (widget.productTypes == ProductTypes.recommended) {
       context.read<RecommendedProductsBloc>().add(GetRecommendedProducts(page: page));
     } else if (widget.productTypes == ProductTypes.catagory) {
+      context.read<ProductsByCatagoryBloc>().add(GetProductsByCategory (catagoryName: widget.catagoryName!, page: page));
     } else if (widget.productTypes == ProductTypes.tags) {
       context.read<GetAllProductsBloc>().add(GetAllProducts(producTags: widget.productTags!, page: page));
     }
@@ -93,7 +98,9 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
             ? _recommendedProducts()
             : widget.productTypes == ProductTypes.tags
               ? _tagProducts()
-              : const Text("Invalid Category")
+              : widget.productTypes == ProductTypes.catagory
+                ? productsbyCategoryProducts()
+                : const Text("Invalid Category")
       ,
     );
   }
@@ -184,6 +191,37 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
             return _showAllProducts();
           }
           if (state is FeaturesProductsError) {
+            return Center(child: Text(state.error));
+          }
+
+          return const SizedBox();
+        });
+  }
+
+  Widget productsbyCategoryProducts() {
+    return BlocBuilder<ProductsByCatagoryBloc, ProductsByCatagoryState>(
+        builder: (context, state) {
+          if (state is ProductsByCatagoryLoading) {
+            if (page == 1) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            } else {
+              return _showAllProducts();
+            }
+          }
+          if (state is ProductsByCatagoryLoaded) {
+            isLoadMoreActive = false;
+
+            allProducts.value.addAll(state.getproductsbycatagoryResponse.products?.product ?? []);
+
+            if (state.getproductsbycatagoryResponse.products!.currentPage! >= state.getproductsbycatagoryResponse.products!.lastPage!) {
+              _isLastPage = true;
+            }
+
+            return _showAllProducts();
+          }
+          if (state is ProductsByCatagoryError) {
             return Center(child: Text(state.error));
           }
 
