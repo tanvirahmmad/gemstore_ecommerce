@@ -19,12 +19,16 @@ class ProductStorageManager {
   ValueNotifier<bool> loading = ValueNotifier(false);
 
   Box? _favoriteBox;
-  
-  ProductStorageManager() {
-    _init();
+
+  static final ProductStorageManager _instance = ProductStorageManager._internal();
+
+  ProductStorageManager._internal();
+
+  factory ProductStorageManager() {
+    return _instance;
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     loading.value = true;
 
     _favoriteBox = await Hive.openBox("favorite");
