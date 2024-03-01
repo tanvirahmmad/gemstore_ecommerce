@@ -19,6 +19,8 @@ class ProductStorageManager {
 
   ValueNotifier<bool> loading = ValueNotifier(false);
 
+  final bool _isNotificationShow = true;
+
   Box? _favoriteBox;
 
   static final ProductStorageManager _instance = ProductStorageManager._internal();
@@ -39,6 +41,18 @@ class ProductStorageManager {
     loading.value = false;
   }
 
+  void _showNotification({
+    required String title,
+    required String description,
+  }) {
+    if(_isNotificationShow) {
+      NotificationManager().showNotification(
+        title: title,
+        description: description,
+      );
+    }
+  }
+
   /// favorite
   Future<void> addToFavorite(Product product) async {
     loading.value = true;
@@ -48,15 +62,15 @@ class ProductStorageManager {
     if(productAlreadyInFavorite != null) {
       print("start processing -> remove from favorite");
       await _favoriteBox!.delete(product.id!);
-      NotificationManager().showNotification(
+      _showNotification(
         title: "Remove form favorite",
-        description: "${product.name?.substring(0, 30)}... remove form favorite",
+          description: "${product.name?.substring(0, 30)}... remove form favorite"
       );
     }
     else {
       print("start processing -> add to favorite");
       await _favoriteBox!.put(product.id!, jsonEncode(product.toJson()));
-      NotificationManager().showNotification(
+      _showNotification(
         title: "Add to favorite",
         description: "${product.name?.substring(0, 30)}... added to favorite",
       );
