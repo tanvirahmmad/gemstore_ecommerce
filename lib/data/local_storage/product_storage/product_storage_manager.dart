@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:gemstore_ecommerce/common/notification_manager.dart';
 import 'package:gemstore_ecommerce/models/cart_product.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -17,6 +18,8 @@ class ProductStorageManager {
   ValueNotifier<List<Notifications>> notifications = ValueNotifier([]);
 
   ValueNotifier<bool> loading = ValueNotifier(false);
+
+  final bool _isNotificationShow = true;
 
   Box? _favoriteBox;
 
@@ -38,6 +41,18 @@ class ProductStorageManager {
     loading.value = false;
   }
 
+  void _showNotification({
+    required String title,
+    required String description,
+  }) {
+    if(_isNotificationShow) {
+      NotificationManager().showNotification(
+        title: title,
+        description: description,
+      );
+    }
+  }
+
   /// favorite
   Future<void> addToFavorite(Product product) async {
     loading.value = true;
@@ -47,10 +62,18 @@ class ProductStorageManager {
     if(productAlreadyInFavorite != null) {
       print("start processing -> remove from favorite");
       await _favoriteBox!.delete(product.id!);
+      _showNotification(
+        title: "Remove form favorite",
+          description: "${product.name?.substring(0, 30)}... remove form favorite"
+      );
     }
     else {
       print("start processing -> add to favorite");
       await _favoriteBox!.put(product.id!, jsonEncode(product.toJson()));
+      _showNotification(
+        title: "Add to favorite",
+        description: "${product.name?.substring(0, 30)}... added to favorite",
+      );
     }
 
     await _getAllFavoriteProducts();
