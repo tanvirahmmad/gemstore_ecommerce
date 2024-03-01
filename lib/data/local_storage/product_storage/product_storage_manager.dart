@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:gemstore_ecommerce/common/notification_manager.dart';
 import 'package:gemstore_ecommerce/models/cart_product.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -47,10 +48,18 @@ class ProductStorageManager {
     if(productAlreadyInFavorite != null) {
       print("start processing -> remove from favorite");
       await _favoriteBox!.delete(product.id!);
+      NotificationManager().showNotification(
+        title: "Remove form favorite",
+        description: "${product.name?.substring(0, 30)}... remove form favorite",
+      );
     }
     else {
       print("start processing -> add to favorite");
       await _favoriteBox!.put(product.id!, jsonEncode(product.toJson()));
+      NotificationManager().showNotification(
+        title: "Add to favorite",
+        description: "${product.name?.substring(0, 30)}... added to favorite",
+      );
     }
 
     await _getAllFavoriteProducts();
