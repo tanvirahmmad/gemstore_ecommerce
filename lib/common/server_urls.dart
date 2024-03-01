@@ -20,6 +20,10 @@ class ServerUrls {
   static String recommendedProducts = "${_getFullUrl()}products/recommended";
   static String tagUrls(String tag) {
     return "${_getFullUrl()}products/tag/$tag";
-
   }
+  static String categoryIdUrls(int id) {
+    return "${_getFullUrl()}products/category/${id.toString()}";
+  }
+
+
 }
