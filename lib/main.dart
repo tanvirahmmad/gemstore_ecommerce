@@ -19,7 +19,7 @@ Future<void> main() async {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
   const AndroidInitializationSettings initializationSettingsAndroid =
-  AndroidInitializationSettings('launch_background.xml');
+  AndroidInitializationSettings('launch_background');
   final InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
@@ -33,7 +33,7 @@ Future<void> main() async {
   const NotificationDetails notificationDetails =
   NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
-      0, 'plain title', 'plain body', notificationDetails,
+      0, 'Kire himel', 'valo hoya ja', notificationDetails,
       payload: 'item x');
 
 
