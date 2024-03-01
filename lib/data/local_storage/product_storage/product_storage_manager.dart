@@ -1,10 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../models/product_response.dart';
-
-
 
 class ProductStorageManager {
   
@@ -22,6 +22,7 @@ class ProductStorageManager {
     loading.value = true;
 
     _favoriteBox = await Hive.openBox("favorite");
+    // await _favoriteBox!.clear();
     await _getAllFavoriteProducts();
 
     loading.value = false;
@@ -30,33 +31,45 @@ class ProductStorageManager {
   Future<void> addToFavorite(Product product) async {
     loading.value = true;
 
-    await _favoriteBox!.put(product.id!, product.toJson());
+    Product? productAlreadyInFavorite = _checkProductExistInFavorite(product);
+
+    if(productAlreadyInFavorite != null) {
+      print("start processing -> remove from favorite");
+      await _favoriteBox!.delete(product.id!);
+    }
+    else {
+      print("start processing -> add to favorite");
+      await _favoriteBox!.put(product.id!, jsonEncode(product.toJson()));
+    }
 
     await _getAllFavoriteProducts();
 
     loading.value = false;
+  }
+
+  Product? _checkProductExistInFavorite(Product product) {
+    for(Product tempProduct in favoriteProducts.value) {
+      if(tempProduct.id == product.id) {
+        return tempProduct;
+      }
+    }
+
+    return null;
   }
 
   Future<void> _getAllFavoriteProducts() async {
     List<Product> productInLocal = [];
 
     for(int i = 0; i < _favoriteBox!.length; i++) {
-      Map<String, dynamic> productJson = await _favoriteBox!.getAt(i)!;
-      Product product = Product.fromJson(productJson);
+      var productJson = await _favoriteBox!.getAt(i)!;
+
+      Product product = Product.fromJson(jsonDecode(productJson));
       productInLocal.add(product);
     }
 
-    favoriteProducts.value = productInLocal;
-  }
+    favoriteProducts.value = List.from(productInLocal);
 
-  Future<void> removeFromFavorite(Product product) async {
-    loading.value = true;
-
-    await _favoriteBox!.delete(product.id!);
-
-    await _getAllFavoriteProducts();
-
-    loading.value = false;
+    print("Product in favorite -> ${favoriteProducts.value.length}");
   }
 
 }
