@@ -19,12 +19,15 @@ class MyAssetsStrings {
   static String office_tshirt = "assets/sliderimages/officetshirt.png";
   static String autumn_collection = "assets/sliderimages/autumncollection.png";
   static const String drawer = "assets/icons/drawerone.png";
+  static const String carde = "assets/icons/carde.png";
   static String elegant_dress = "assets/sliderimages/elegant.png";
   static String top_collecton= "assets/sliderimages/topcollection.jpg";
+
+
   // icons
   static const String search_all = "assets/icons/searchall.png";
   static const String money_icon = "assets/icons/moneyicon.png";
-  static const String card_icon = "assets/icons/debit.png";
+
   static const String bell_icon = "assets/icons/bell.png";
   static const String Navigator_home_image =
       "assets/navigation_bar_images/home.png";

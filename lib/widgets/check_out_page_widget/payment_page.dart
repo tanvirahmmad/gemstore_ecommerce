@@ -94,12 +94,11 @@ class _PaymentState extends State<Payment> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        Center(
                           child: Image.asset(
-                            MyAssetsStrings.card_icon,
+                            MyAssetsStrings.carde,
                             width: 35,
-                            height: 42,
+                            height: 22,
                           ),
                         ),
                         Text(
