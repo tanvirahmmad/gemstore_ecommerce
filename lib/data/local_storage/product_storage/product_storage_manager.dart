@@ -22,6 +22,7 @@ class ProductStorageManager {
   final bool _isNotificationShow = true;
 
   Box? _favoriteBox;
+  Box? _notificationBox;
 
   static final ProductStorageManager _instance = ProductStorageManager._internal();
 
@@ -35,22 +36,30 @@ class ProductStorageManager {
     loading.value = true;
 
     _favoriteBox = await Hive.openBox("favorite");
+    _notificationBox = await Hive.openBox("notification");
     // await _favoriteBox!.clear();
     await _getAllFavoriteProducts();
+    await _getNotifications();
 
     loading.value = false;
   }
 
-  void _showNotification({
+  Future<void> _showNotification({
     required String title,
     required String description,
-  }) {
+  }) async {
     if(_isNotificationShow) {
       NotificationManager().showNotification(
         title: title,
         description: description,
       );
     }
+
+    await _addNewNotification(Notifications(
+        title: title,
+        msg: description,
+    ));
+
   }
 
   /// favorite
@@ -125,5 +134,28 @@ class ProductStorageManager {
   }
 
   /// notifications
+  Future<void> _getNotifications() async {
+    List<Notifications> notificationInLocal = [];
+
+    for(var item in _notificationBox!.values) {
+      Notifications notifications = Notifications.fromJson(jsonDecode(item));
+
+      notificationInLocal.add(notifications);
+    }
+
+    notifications.value = List.from(notificationInLocal);
+
+    print("Total Notification Count -> ${notifications.value.length}");
+  }
+
+  Future<void> _addNewNotification(Notifications notification) async {
+    loading.value = true;
+
+    await _notificationBox!.put(notification.id, jsonEncode(notification.toJson()));
+
+    await _getNotifications();
+
+    loading.value = false;
+  }
 
 }
