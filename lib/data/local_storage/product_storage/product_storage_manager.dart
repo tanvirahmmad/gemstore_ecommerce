@@ -135,17 +135,50 @@ class ProductStorageManager {
 
   /// notifications
   Future<void> _getNotifications() async {
+
+    if((_notificationBox?.length ?? 0) <= 0) return;
+
     List<Notifications> notificationInLocal = [];
 
-    for(var item in _notificationBox!.values) {
-      Notifications notifications = Notifications.fromJson(jsonDecode(item));
+    int itemPerLoading = 20;
+
+    int itemFetchStartIndex = _favoriteBox!.length - 1 - notifications.value.length;
+    // _favoriteBox!.length = 100;
+    // for notifications.value.length = 0; itemFetchStartIndex = 100 - 1 - 0 = 99
+    // for notifications.value.length = 30; itemFetchStartIndex = 100 - 1 - 30 = 69
+    // for notifications.value.length = 80; itemFetchStartIndex = 100 - 1 - 80 = 19
+    // for notifications.value.length = 90; itemFetchStartIndex = 100 - 1 - 90 = 9
+
+    // _favoriteBox!.length = 0;
+    // for notifications.value.length = 0; itemFetchStartIndex = 0 - 1 - 0 = -1 (invalid, return on first)
+
+    int itemFetchEndIndex = (itemFetchStartIndex - itemPerLoading <= 0) ? 0 : itemFetchStartIndex - itemPerLoading;
+    // _favoriteBox!.length = 100;
+    // for notifications.value.length = 0; itemFetchEndIndex = (99 - 20 <= 0) => 70
+    // for notifications.value.length = 30; itemFetchEndIndex = (69 - 20 <= 0) => 49
+    // for notifications.value.length = 80; itemFetchEndIndex = (19 - 20 <= 0) => 0
+    // for notifications.value.length = 90; itemFetchEndIndex = (9 - 20 <= 0) => 0
+
+    for(int i = itemFetchStartIndex; i >= itemFetchEndIndex; i--) {
+      var notificationJson = await _notificationBox!.getAt(i)!;
+
+      Notifications notifications = Notifications.fromJson(jsonDecode(notificationJson));
 
       notificationInLocal.add(notifications);
     }
 
     notifications.value = List.from(notificationInLocal);
 
-    print("Total Notification Count -> ${notifications.value.length}");
+    print("Notification Count -> ${notifications.value.length} of ${_notificationBox!.length}");
+  }
+
+  Future<void> loadMoreNotifications() async {
+    if((_notificationBox?.length ?? 0) <= 0) return;
+    if(_notificationBox!.length == notifications.value.length) return;
+
+    loading.value = true;
+    await _getNotifications();
+    loading.value = false;
   }
 
   Future<void> _addNewNotification(Notifications notification) async {
