@@ -10,12 +10,12 @@ class CartProduct {
   });
 
   factory CartProduct.fromJson(Map<String, dynamic> json) => CartProduct(
-        product: json["product"],
+        product: Product.fromJson(json["product"]),
         quantity: json["quantity"],
       );
 
   Map<String, dynamic> toJson() => {
-        "product": product,
+        "product": product.toJson(),
         "quantity": quantity,
       };
 }
