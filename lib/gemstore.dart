@@ -4,7 +4,7 @@ import 'package:gemstore_ecommerce/features/screens/home_screen/category_bloc/ca
 import 'package:gemstore_ecommerce/features/screens/home_screen/get_all_products_bloc/get_all_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/home_screen/home_screen.dart';
 import 'package:gemstore_ecommerce/features/screens/my_cart.dart';
-import 'package:gemstore_ecommerce/features/screens/ount_details/sign_up_page.dart';
+
 import 'package:gemstore_ecommerce/features/screens/products_by_catagory/products_by_catagory_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/recommended_bloc/recommended_products_bloc.dart';
 import 'package:gemstore_ecommerce/features/screens/splash_screen/SplashScreen.dart';
@@ -12,6 +12,8 @@ import 'package:gemstore_ecommerce/repository/category_repository.dart';
 import 'package:gemstore_ecommerce/repository/get_tag_products.dart';
 import 'package:gemstore_ecommerce/repository/products_by_catagory_repository.dart';
 import 'package:gemstore_ecommerce/repository/recommended_repository.dart';
+import 'package:gemstore_ecommerce/widgets/check_out_page_widget/payment_page.dart';
+import 'package:gemstore_ecommerce/widgets/check_out_page_widget/shipping_widget.dart';
 import 'features/screens/home_screen/features_products/features_products_bloc.dart';
 import 'repository/features_products_repository.dart';
 
@@ -49,67 +51,6 @@ class Gemstore extends StatelessWidget {
           BlocProvider(
             create: (context) =>  ProductsByCatagoryBloc(GetProductsByCatagoryReppository()),
           ),
-          /*
-          BlocProvider(
-            create: (context) =>
-                ShreesProductsBloc(ShareesProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => TopsProductsBloc(TopsProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => CoordsProductsBloc(CoordsProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => SkirtsProductsBloc(SkirtsProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => JeansProductsBloc(JeansProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => SportsProductsBloc(SportsProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => FlatsProductsBloc(FlatsProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => HeelsProductsBloc(HeelsProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) =>
-                SkinCareProductsBloc(SkinCareProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => ShoesProductsBloc(ShoesProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) =>
-                PerfumeProductsBloc(PerfumeProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => MakeupProductsBloc(MakeupProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) =>
-                JewelleryProductsBloc(JewelleryProductsRepository()),
-            lazy: true,
-          ),
-          BlocProvider(
-            create: (context) => CasualProductsBloc(CasualProductsRepository()),
-            lazy: true,
-          ),*/
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -118,7 +59,7 @@ class Gemstore extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: false,
           ),
-          home: SplashScreen(),
+          home: Payment(),
         ),
       ),
     );

@@ -138,7 +138,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             (Product product) =>
                                 product.id == widget.product.id);
                         return Icon(
-                          Icons.favorite_border_outlined,
+                          Icons.favorite,
                           color: isfavourite ? Colors.red : Colors.black,
                         );
                       },
