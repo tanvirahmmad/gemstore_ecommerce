@@ -2,15 +2,15 @@ class Notifications {
   int id;
   String title;
   String msg;
-  DateTime createdAt;
+  String createdAt;
 
   Notifications({
     int? id,
     required this.title,
     required this.msg,
-    DateTime? createdAt,
+    String? createdAt,
   })  : id = id ?? DateTime.now().millisecond,
-        createdAt = createdAt ?? DateTime.now();
+        createdAt = createdAt ?? DateTime.now().toString();
 
   factory Notifications.fromJson(Map<String, dynamic> json) => Notifications(
         id: json["id"],

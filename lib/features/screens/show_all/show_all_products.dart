@@ -232,6 +232,11 @@ class _ShowAllProductsState extends State<ShowAllProducts> {
 
             allProducts.value.addAll(state.getproductsbycatagoryResponse.products?.product ?? []);
 
+            if(allProducts.value.length > (state.getproductsbycatagoryResponse.products!.currentPage! * state.getproductsbycatagoryResponse.products!.perPage!)){
+              allProducts.value = List.from([]);
+              allProducts.value.addAll(state.getproductsbycatagoryResponse.products?.product ?? []);
+            }
+
             if (state.getproductsbycatagoryResponse.products!.currentPage! >= state.getproductsbycatagoryResponse.products!.lastPage!) {
               _isLastPage = true;
             }

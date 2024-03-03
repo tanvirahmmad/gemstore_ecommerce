@@ -17,6 +17,8 @@ class ProductStorageManager {
   ValueNotifier<List<OrderModel>> myOrders = ValueNotifier([]);
   ValueNotifier<List<Notifications>> notifications = ValueNotifier([]);
 
+  ValueNotifier<int> totalNotification = ValueNotifier(0);
+
   ValueNotifier<bool> loading = ValueNotifier(false);
 
   final bool _isNotificationShow = true;
@@ -225,6 +227,7 @@ class ProductStorageManager {
 
   /// notifications
   Future<void> _getNotifications() async {
+    totalNotification.value = _notificationBox!.length;
 
     if((_notificationBox?.length ?? 0) <= 0) {
       _showLog('No notifications');
@@ -235,7 +238,7 @@ class ProductStorageManager {
 
     int itemPerLoading = 20;
 
-    int itemFetchStartIndex = _favoriteBox!.length - 1 - notifications.value.length;
+    int itemFetchStartIndex = _notificationBox!.length - 1 - notifications.value.length;
     // _favoriteBox!.length = 100;
     // for notifications.value.length = 0; itemFetchStartIndex = 100 - 1 - 0 = 99
     // for notifications.value.length = 30; itemFetchStartIndex = 100 - 1 - 30 = 69
